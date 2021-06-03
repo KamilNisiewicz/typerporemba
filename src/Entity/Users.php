@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Users
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="users", uniqueConstraints={@ORM\UniqueConstraint(name="user_constraint", columns={"email", "login"})})
  * @ORM\Entity(repositoryClass="App\Repository\UsersRepository")
  */
-class Users
+class Users implements UserInterface
 {
     /**
      * @var int
@@ -140,5 +141,26 @@ class Users
         return $this;
     }
 
+    public function getRoles(): array
+    {
+	$roles = ['ROLE_USER'];
+
+	return $roles;
+    }
+
+    public function getSalt(): string
+    {
+	return $this->getEmail();
+    }
+
+    public function eraseCredentials()
+    {
+        return [];
+    }
+    
+    public function getUsername()
+    {
+	return $this->getLogin();
+    }
 
 }
