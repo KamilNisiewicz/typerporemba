@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+<form method="post">
+    <h1 class="h3 mb-3 font-weight-normal">Register</h1>
+
+    {% if app.session.flashbag.peek('error') %}
+	{% for message in app.flashes('error') %}
+	    <p>{{ message|raw }}</p>
+	{% endfor %}
+    {% endif %}
+    
+    {% if app.session.flashbag.peek('success') %}
+	{% for message in app.flashes('success') %}
+	    <p>{{ message|raw }}</p>
+	{% endfor %}
+    {% endif %}
+
+    <label for="inputEmail">Email</label>
+    <input type="text" value="" name="email" id="inputEmail" class="form-control">
+    <label for="inputLogin">Login</label>
+    <input type="text" value="" name="login" id="inputLogin" class="form-control">
+    <label for="inputPassword1">Hasło</label>
+    <input type="password" name="password1" id="inputPassword1" class="form-control">
+    <label for="inputPassword2">Powtórz hasło</label>
+    <input type="password" name="password2" id="inputPassword2" class="form-control">
+
+    <button class="btn btn-lg btn-primary" type="submit">
+        Register
+    </button>
+</form>
+{% endblock %}

@@ -11,19 +11,8 @@ class UserController extends AbstractController
     /**
      * @Route("/user", name="user")
      */
-    public function index(\Swift_Mailer $mailer): Response
+    public function index(): Response
     {
-/*
-	$message = (new \Swift_Message('Hello Email'))
-	    ->setFrom('typerporemba@gmail.com')
-	    ->setTo('kamilnisiewicz@op.pl')
-	    ->setBody(
-		"Test",
-		'text/html'
-	    );
-
-	$mailer->send($message);
-*/
         return $this->render('user/index.html.twig', [
             'controller_name' => 'UserController',
         ]);

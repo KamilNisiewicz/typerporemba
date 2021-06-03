@@ -18,4 +18,22 @@ class UsersRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Users::class);
     }
+    
+    public function checkUsersExists(string $email, string $login): bool
+    {
+	$users = $this->createQueryBuilder('u')
+	    ->select('u.login')
+	    ->where('u.email = :email')
+	    ->orWhere('u.login = :login')
+	    ->setParameter('email', $email)
+	    ->setParameter('login', $login)
+	    ->getQuery()
+	    ->getArrayResult();
+	
+	if($users){
+	    return true;
+	}else{
+	    return false;
+	}
+    }
 }

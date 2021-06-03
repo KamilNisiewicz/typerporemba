@@ -31,6 +31,7 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
     private $csrfTokenManager;
     private $router;
     private $helperServices;
+    private $user;
 
     public function __construct(EntityManagerInterface $entityManager, CsrfTokenManagerInterface $csrfTokenManager, RouterInterface $router, HelperServices $helperServices)
     {
@@ -75,6 +76,8 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
 	if (!$user) {
 	    throw new CustomUserMessageAuthenticationException('Nie znaleziono użytkownika o podanym adresie e-mail!');
 	}
+	
+	$this->user = $user;
 
 	return $user;
     }
@@ -96,6 +99,9 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
             return new RedirectResponse($targetPath);
         }
 
+	$this->user->setLastLogin(new \DateTime());
+	$this->entityManager->flush();
+            
 	$url = $this->router->generate('user');
         return new RedirectResponse($url);
     }

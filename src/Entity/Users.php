@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * Users
  *
- * @ORM\Table(name="users", uniqueConstraints={@ORM\UniqueConstraint(name="user_constraint", columns={"email", "login"})})
+ * @ORM\Table(name="users", uniqueConstraints={@ORM\UniqueConstraint(name="email", columns={"email"}), @ORM\UniqueConstraint(name="login", columns={"login"})})
  * @ORM\Entity(repositoryClass="App\Repository\UsersRepository")
  */
 class Users implements UserInterface
@@ -48,7 +48,7 @@ class Users implements UserInterface
      *
      * @ORM\Column(name="created", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
-    private $created = 'CURRENT_TIMESTAMP';
+    private $created;
 
     /**
      * @var bool|null
@@ -62,7 +62,7 @@ class Users implements UserInterface
      *
      * @ORM\Column(name="last_login", type="datetime", nullable=false, options={"default"="0000-00-00 00:00:00"})
      */
-    private $lastLogin = '0000-00-00 00:00:00';
+    private $lastLogin;
 
     public function getId(): ?int
     {
