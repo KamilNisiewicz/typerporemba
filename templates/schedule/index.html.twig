@@ -1,0 +1,159 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ScheduleController!{% endblock %}
+
+{% block body %}
+<div class="example-wrapper">
+    <h1>Terminarz</h1>
+    <h2>Faza grupowa</h2>
+    {% for match in schedule %}
+	<div style="display:flex;">
+	    <div style="padding:2px 5px;">{{ loop.index }}</div>
+	    <div style="padding:2px 5px;">{{ match.phase }}</div>
+	    <div style="padding:2px 5px;">{{ match.date | date('d-m-Y H:m:s') }}</div>
+	    <div style=" display:flex; padding:2px 5px;">
+		<img src="/images/flags/{{ match.homeTeamFlag }}" style="max-width:20px;" />
+		<div>{{ match.homeTeamName }}-</div>
+		<div>{{ match.awayTeamName }}</div>
+		<img src="/images/flags/{{ match.awayTeamFlag }}" style="max-width:20px;" />
+	    </div>
+	</div>
+    {% endfor %}
+    <h2>Faza Pucharowa</h2>
+    <div style="display:flex;">
+	<div style="padding:2px 5px;">37</div>
+	<div style="padding:2px 5px;">1/8 finału</div>
+	<div style="padding:2px 5px;">26-06-2021 18:00:00</div>
+	<div style=" display:flex; padding:2px 5px;">
+	    <div>2A&nbsp;-&nbsp;</div>
+	    <div>2B</div>
+	</div>
+    </div>
+    <div style="display:flex;">
+	<div style="padding:2px 5px;">38</div>
+	<div style="padding:2px 5px;">1/8 finału</div>
+	<div style="padding:2px 5px;">26-06-2021 21:00:00</div>
+	<div style=" display:flex; padding:2px 5px;">
+	    <div>1A&nbsp;-&nbsp;</div>
+	    <div>2C</div>
+	</div>
+    </div>
+    <div style="display:flex;">
+	<div style="padding:2px 5px;">39</div>
+	<div style="padding:2px 5px;">1/8 finału</div>
+	<div style="padding:2px 5px;">27-06-2021 18:00:00</div>
+	<div style=" display:flex; padding:2px 5px;">
+	    <div>1C&nbsp;-&nbsp;</div>
+	    <div>3DEF</div>
+	</div>
+    </div>
+    <div style="display:flex;">
+	<div style="padding:2px 5px;">40</div>
+	<div style="padding:2px 5px;">1/8 finału</div>
+	<div style="padding:2px 5px;">27-06-2021 21:00:00</div>
+	<div style=" display:flex; padding:2px 5px;">
+	    <div>1B&nbsp;-&nbsp;</div>
+	    <div>3ADEF</div>
+	</div>
+    </div>
+    <div style="display:flex;">
+	<div style="padding:2px 5px;">41</div>
+	<div style="padding:2px 5px;">1/8 finału</div>
+	<div style="padding:2px 5px;">28-06-2021 18:00:00</div>
+	<div style=" display:flex; padding:2px 5px;">
+	    <div>2D&nbsp;-&nbsp;</div>
+	    <div>2E</div>
+	</div>
+    </div>
+    <div style="display:flex;">
+	<div style="padding:2px 5px;">42</div>
+	<div style="padding:2px 5px;">1/8 finału</div>
+	<div style="padding:2px 5px;">28-06-2021 21:00:00</div>
+	<div style=" display:flex; padding:2px 5px;">
+	    <div>1F&nbsp;-&nbsp;</div>
+	    <div>3ABC</div>
+	</div>
+    </div>
+    <div style="display:flex;">
+	<div style="padding:2px 5px;">43</div>
+	<div style="padding:2px 5px;">1/8 finału</div>
+	<div style="padding:2px 5px;">29-06-2021 18:00:00</div>
+	<div style=" display:flex; padding:2px 5px;">
+	    <div>1D&nbsp;-&nbsp;</div>
+	    <div>2F</div>
+	</div>
+    </div>
+    <div style="display:flex;">
+	<div style="padding:2px 5px;">44</div>
+	<div style="padding:2px 5px;">1/8 finału</div>
+	<div style="padding:2px 5px;">29-06-2021 21:00:00</div>
+	<div style=" display:flex; padding:2px 5px;">
+	    <div>1E&nbsp;-&nbsp;</div>
+	    <div>3ABCD</div>
+	</div>
+    </div>
+    <div style="display:flex;">
+	<div style="padding:2px 5px;">45</div>
+	<div style="padding:2px 5px;">Ćwierćfinał</div>
+	<div style="padding:2px 5px;">02-07-2021 18:00:00</div>
+	<div style=" display:flex; padding:2px 5px;">
+	    <div>W41&nbsp;-&nbsp;</div>
+	    <div>W42</div>
+	</div>
+    </div>
+    <div style="display:flex;">
+	<div style="padding:2px 5px;">46</div>
+	<div style="padding:2px 5px;">Ćwierćfinał</div>
+	<div style="padding:2px 5px;">02-07-2021 21:00:00</div>
+	<div style=" display:flex; padding:2px 5px;">
+	    <div>W39&nbsp;-&nbsp;</div>
+	    <div>W37</div>
+	</div>
+    </div>
+    <div style="display:flex;">
+	<div style="padding:2px 5px;">47</div>
+	<div style="padding:2px 5px;">Ćwierćfinał</div>
+	<div style="padding:2px 5px;">03-07-2021 18:00:00</div>
+	<div style=" display:flex; padding:2px 5px;">
+	    <div>W40&nbsp;-&nbsp;</div>
+	    <div>W38</div>
+	</div>
+    </div>
+    <div style="display:flex;">
+	<div style="padding:2px 5px;">48</div>
+	<div style="padding:2px 5px;">Ćwierćfinał</div>
+	<div style="padding:2px 5px;">03-07-2021 21:00:00</div>
+	<div style=" display:flex; padding:2px 5px;">
+	    <div>W43&nbsp;-&nbsp;</div>
+	    <div>W44</div>
+	</div>
+    </div>
+    <div style="display:flex;">
+	<div style="padding:2px 5px;">49</div>
+	<div style="padding:2px 5px;">Półfinał</div>
+	<div style="padding:2px 5px;">06-07-2021 21:00:00</div>
+	<div style=" display:flex; padding:2px 5px;">
+	    <div>W46&nbsp;-&nbsp;</div>
+	    <div>W45</div>
+	</div>
+    </div>
+    <div style="display:flex;">
+	<div style="padding:2px 5px;">50</div>
+	<div style="padding:2px 5px;">Półfinał</div>
+	<div style="padding:2px 5px;">07-07-2021 21:00:00</div>
+	<div style=" display:flex; padding:2px 5px;">
+	    <div>W48&nbsp;-&nbsp;</div>
+	    <div>W47</div>
+	</div>
+    </div>
+    <div style="display:flex;">
+	<div style="padding:2px 5px;">51</div>
+	<div style="padding:2px 5px;">Finał</div>
+	<div style="padding:2px 5px;">11-07-2021 21:00:00</div>
+	<div style=" display:flex; padding:2px 5px;">
+	    <div>W49&nbsp;-&nbsp;</div>
+	    <div>W50</div>
+	</div>
+    </div>
+</div>
+{% endblock %}

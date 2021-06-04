@@ -9,7 +9,7 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Hello {{ app.user.login }} - ustawienia</h1>
 
     {% if app.user.active %}
 	{% if app.session.flashbag.peek('error') %}
@@ -22,6 +22,15 @@
 		<p>{{ message|raw }}</p>
 	    {% endfor %}
 	{% endif %}
+	Zmiana hasła:
+	<form method="post" action="{{ path('user_change_email') }}">
+	    <label for="">Adres e-mail</label>
+	    <input type="text" value="{{ app.user.email }}" name="email" id="email" class="form-control">
+
+	    <button class="btn btn-lg btn-primary" type="submit">
+		Zmień adres e-mail
+	    </button>
+	</form>
 	Zmiana hasła:
 	<form method="post" action="{{ path('user_change_password') }}">
 	    <label for="">Hasło</label>

@@ -36,4 +36,16 @@ class UsersRepository extends ServiceEntityRepository
 	    return false;
 	}
     }
+
+    public function searchUser(string $search): Users
+    {
+	$user = $this->createQueryBuilder('u')
+	    ->where('u.email = :search')
+	    ->orWhere('u.login = :search')
+	    ->setParameter('search', $search)
+	    ->getQuery()
+	    ->getSingleResult();
+	
+	return $user;
+    }
 }

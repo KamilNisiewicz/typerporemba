@@ -1,9 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainPageController!{% endblock %}
+{% block title %}typerporemba.pl{% endblock %}
 
 {% block body %}
 <div class="example-wrapper">
-    <h1>TYPER POREMBA - {{ user_data.login }}</h1>
+    <h1>TYPER POREMBA</h1>
+    <h2>W puli <strong>{{ prizePool }}</strong> złotych</h2>
+
+    <a href="{{ path('regulations') }}">Regulamin</a>
+    <a href="{{ path('schedule') }}">Terminarz</a>
+
+    <form method="post" action="{{ path('user_login') }}">
+
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <label for="inputEmail">Login</label>
+    <input type="text" value="" name="login" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+    <label for="inputPassword">Password</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
+
+    <button class="btn btn-lg btn-primary" type="submit">
+        Sign in
+    </button>
+</form>
 </div>
 {% endblock %}

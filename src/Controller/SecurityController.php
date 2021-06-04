@@ -58,11 +58,11 @@ class SecurityController extends AbstractController
 	$password2 = $helperServices->proper($request->get("password2"));
 
 	if($email && $login && $password1 && $password2){
-	    $check_user_exists = $this->getDoctrine()
+	    $checkUserExists = $this->getDoctrine()
 		->getRepository(Users::class)
 		->checkUsersExists($email, $login);
 	
-	    if($check_user_exists){
+	    if($checkUserExists){
 		$this->addFlash('error', "Prawdopodobnie istnieje już konto o podanym adresie e-mail lub loginie!");
 	    }else{
 		if($password1 != $password2){
@@ -127,12 +127,36 @@ class SecurityController extends AbstractController
 	$search = $helperServices->proper($request->get("search"));
 
 	if($search){
-	    $check_user_exists = $this->getDoctrine()
+	    $checkUserExists = $this->getDoctrine()
 		->getRepository(Users::class)
 		->checkUsersExists($search, $search);
 	
-	    if($check_user_exists){
+	    if($checkUserExists){
+		$user = $this->getDoctrine()
+		    ->getRepository(Users::class)
+		    ->searchUser($search);
 		
+		$control = $helperServices->generateRandomString(25);
+		$user->setControl($control);
+		$em->flush();
+
+		if($user->getControl()){
+		    $typerEmail = $this->getParameter("base_email");
+
+		    $message = (new \Swift_Message('Reset hasła w typerporemba.pl'))
+			->setFrom($typerEmail)
+			->setTo($user->getEmail())
+			->setBody($this->renderView(
+				"emails/reset_password.html.twig",
+				[
+				    'control' => $control
+				]
+			    ),
+			    'text/html'
+			);
+
+		    $mailer->send($message);
+		};
 	    }
 	}
 
@@ -140,7 +164,52 @@ class SecurityController extends AbstractController
 
 	return $this->redirectToRoute('user_reset_password');
     }
-    
+
+    /**
+     * @Route("/reset-password/{control}", name="user_reset_password_action_change", methods={"GET"})
+     */
+    public function resetPasswordActionChange(string $control, Request $request, HelperServices $helperServices, \Swift_Mailer $mailer): Response
+    {
+	$em = $this->getDoctrine()->getManager();
+
+	if($this->getUser()) {
+	    return $this->redirectToRoute('user');
+	}
+
+	$checkUser = $this->getDoctrine()
+	    ->getRepository(Users::class)
+	    ->findOneBy(['control' => $control]);
+
+	if($checkUser){
+	    $password = $helperServices->generateRandomString(10);
+	    $hashPassword = $helperServices->getHashedPassword($checkUser->getLogin(), $password);
+
+	    $checkUser->setPassword($hashPassword);
+	    $checkUser->setControl(NULL);
+	    $em->flush();
+
+	    $typerEmail = $this->getParameter("base_email");
+
+	    $message = (new \Swift_Message('Nowe hasło w typerporemba.pl'))
+		->setFrom($typerEmail)
+		->setTo($checkUser->getEmail())
+		->setBody($this->renderView(
+		    "emails/new_password.html.twig",
+		    [
+			'password' => $password
+		    ]
+		),
+		'text/html'
+		);
+
+	    $mailer->send($message);
+	    $this->addFlash('success', "Na Twój adres e-mail wysłaliśmy nowe hasło. Sprawdź pocztę!");
+	}else{
+	    $this->addFlash('error', "Link nieaktywny!");
+	}
+	return $this->redirectToRoute('user_reset_password');
+    }
+
     /**
      * @Route("/user/change-password", name="user_change_password", methods={"POST"})
      */
@@ -166,6 +235,30 @@ class SecurityController extends AbstractController
 	    $this->addFlash('error', "Podane hasła nie są takie same!");
 	}
 	
+	return $this->redirectToRoute('user_settings');
+    }
+
+    /**
+     * @Route("/user/change-email", name="user_change_email", methods={"POST"})
+     */
+    public function changeEmail(Request $request, HelperServices $helperServices): Response
+    {
+	$em = $this->getDoctrine()->getManager();
+	$email = $helperServices->proper($request->get("email"));
+	$user = $this->getUser();
+
+	$checkEmail = $this->getDoctrine()
+	    ->getRepository(Users::class)
+	    ->findOneBy(['email' => $email]);
+
+	if($checkEmail){
+	    $this->addFlash('error', "Podane adres został już wykorzystany!");
+	}else{
+	    $user->setEmail($email);
+	    $em->flush();
+	    $this->addFlash('success', "Adres e-mail został zmieniony!");
+	}
+
 	return $this->redirectToRoute('user_settings');
     }
 

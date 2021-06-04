@@ -64,6 +64,13 @@ class Users implements UserInterface
      */
     private $lastLogin;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="control", type="string", length=50, nullable=true)
+     */
+    private $control;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -137,6 +144,18 @@ class Users implements UserInterface
     public function setLastLogin(\DateTimeInterface $lastLogin): self
     {
         $this->lastLogin = $lastLogin;
+
+        return $this;
+    }
+
+    public function getControl(): ?string
+    {
+        return $this->control;
+    }
+
+    public function setControl(?string $control): self
+    {
+        $this->control = $control;
 
         return $this;
     }

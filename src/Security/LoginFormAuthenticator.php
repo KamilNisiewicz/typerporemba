@@ -74,7 +74,7 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
 	    ->findOneBy(['login' => $credentials['login']]);
 
 	if (!$user) {
-	    throw new CustomUserMessageAuthenticationException('Nie znaleziono użytkownika o podanym adresie e-mail!');
+	    throw new CustomUserMessageAuthenticationException('Nie znaleziono użytkownika o podanym loginie!');
 	}
 	
 	$this->user = $user;
