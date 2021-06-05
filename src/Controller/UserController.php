@@ -41,7 +41,7 @@ class UserController extends AbstractController
 	$results = $this->getDoctrine()
 	    ->getRepository(Bets::class)
 	    ->getResults();
-	
+
         return $this->render('user/results.html.twig', [
 	    'results' => $results
         ]);

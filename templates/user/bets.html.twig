@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block meta_title %}Hello UserController!{% endblock %}
+{% block meta_title %}Twoje typy{% endblock %}
 
 {% block content %}
-<div class="example-wrapper">
-    <h1>Hello {{ app.user.login }}</h1>
+{% if app.user.active %}
+<h2 class="site-title">Twoje typy</h2>
     <h2>Dzisiejsze mecze</h2>
     {% for match in today %}
     	<div style="display:flex;">
@@ -105,5 +105,7 @@
 	    <div style="padding:2px 5px;" class={{ points_class(match.points) }}>{{ match.points }}</div>
 	</div>
     {% endfor %}
-</div>
+{% else %}
+    {{ include('_partials/user_inactive_info.twig') }}
+{% endif %}
 {% endblock %}

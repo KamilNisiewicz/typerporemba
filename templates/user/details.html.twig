@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block meta_title %}Hello UserController!{% endblock %}
+{% block meta_title %}Szczegóły - {{ userInfo.login }}{% endblock %}
 
 {% block content %}
-<div class="example-wrapper">
-    <h1>Hello {{ app.user.login }}</h1>
-    <h2>{{ userInfo.login }} - suma punktów: {{ points.points }}</h2>
+{% if app.user.active %}
+<h2 class="site-title">
+    <span class="color-gold">{{ userInfo.login }}</span> - suma punktów: <span class="color-gold">{{ points.points }}</span>
+</h2>
+<a href="{{ path('user_results') }}" class="button-link button-margin-bottom">Wróć do tabeli &laquo;</a>
     {% for match in details %}
     	<div style="display:flex;">
 	    <div style="padding:2px 5px;">{{ loop.index }}</div>
@@ -28,5 +30,7 @@
 	    <div style="padding:2px 5px;" class={{ points_class(match.points) }}>{{ match.points }}</div>
 	</div>
     {% endfor %}
-</div>
+{% else %}
+    {{ include('_partials/user_inactive_info.twig') }}
+{% endif %}
 {% endblock %}
