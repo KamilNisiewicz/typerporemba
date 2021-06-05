@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block meta_title %}Hello UserController!{% endblock %}
+
+{% block content %}
+<div class="example-wrapper">
+    <h1>Hello {{ app.user.login }}</h1>
+    {% if app.session.flashbag.peek('error') %}
+	{% for message in app.flashes('error') %}
+	    <p>{{ message|raw }}</p>
+	{% endfor %}
+    {% endif %}
+    {% if app.session.flashbag.peek('success') %}
+	{% for message in app.flashes('success') %}
+	    <p>{{ message|raw }}</p>
+	{% endfor %}
+    {% endif %}
+    <a href="{{ path('user_bets') }}">Wróc do typów &laquo;</a>
+    <form method="post" action="{{ path('user_bet_action', { 'betId': bet[0].betId }) }}" style="align-items:center; display:flex; flex-direction:column;">
+	<div style=" display:flex; padding:2px 5px; text-align:center;">
+	    <div style="padding:0 5px;">{{ bet[0].phase }}</div>
+	    <div style="padding:0 5px;">{{ bet[0].date | date('d-m-Y H:i:s') }}</div>
+	</div>
+	<div style=" display:flex; padding:2px 5px; text-align:center;">
+	    <img src="/images/flags/{{ bet[0].homeTeamFlag }}" style="max-width:20px;" />
+	    <div>{{ bet[0].homeTeamName }}</div>
+	    <div style="padding:0 5px;">:</div>
+	    <img src="/images/flags/{{ bet[0].awayTeamFlag }}" style="max-width:20px;" />
+	    <div>{{ bet[0].awayTeamName }}</div>
+	</div>
+	<div style=" display:flex; padding:2px 5px; text-align:center;">
+	    <input type="text" name="home_team" id="home_team" value="{{ bet[0].userHomeTeamScore }}" style="margin:0 5px; max-width:30px; padding:0 3px; text-align:center;" />
+	    <div style="padding:0 5px;">:</div>
+	    <input type="text" name="away_team" id="away_team" value="{{ bet[0].userAwayTeamScore }}" style="margin:0 5px; max-width:30px; padding:0 3px; text-align:center;" />
+	</div>
+	{% if bet[0].date > date() %}
+	<div style=" display:flex; padding:2px 5px; text-align:center;">
+	    <button type="submit">Zapisz &raquo;</button>
+	</div>
+	{% endif %}
+    </form>
+</div>
+{% endblock %}

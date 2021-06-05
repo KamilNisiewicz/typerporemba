@@ -2,18 +2,25 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block meta_title %}{% endblock %} - typerporemba.pl</title>
+        <meta name="description" content="{% block meta_desc %}{% endblock %}">
+        
         {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
+	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+	    <link rel="stylesheet" href="{{ asset('css/main.css') }}?{{ date().timestamp }}" />
         {% endblock %}
-
         {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
+	    <script src="{{ asset('js/main.js') }}?{{ date().timestamp }}"></script>
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+	{{ include('_partials/header.twig') }}
+	<section>
+	    <div class="container">
+		{% block content %}{% endblock %}
+	    </div>
+        </section>
+	{{ include('_partials/footer.twig') }}
     </body>
 </html>

@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block meta_title %}Log in!{% endblock %}
 
-{% block body %}
+{% block content %}
 <form method="post">
-    <h1 class="h3 mb-3 font-weight-normal">Register</h1>
+    <h1 class="h3 mb-3 font-weight-normal">Rejestracja</h1>
 
     {% if app.session.flashbag.peek('error') %}
 	{% for message in app.flashes('error') %}
@@ -28,7 +28,7 @@
     <input type="password" name="password2" id="inputPassword2" class="form-control">
 
     <button class="btn btn-lg btn-primary" type="submit">
-        Register
+        Zarejestruj
     </button>
 </form>
 {% endblock %}

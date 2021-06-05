@@ -1,0 +1,20 @@
+<header>
+    <div class="container">
+	<div class="header">
+	    <h1>
+		<a href="/">
+		    TYPER POREMBA <i class="fas fa-futbol"></i>
+		</a>
+	    </h1>
+	    <div class="menu">
+	        <a href="{{ path('regulations') }}" class="hover">Regulamin</a>
+		<a href="{{ path('schedule') }}" class="hover">Terminarz</a>
+		{% if app.user %}
+		    <a href="{{ path('user_logout') }}" class="hover">Wyloguj</a>
+		{% else %}
+		    <a href="{{ path('user_login') }}" class="hover">Logowanie</a>
+		{% endif %}
+	    </div>
+	</div>
+    </div>
+</header>

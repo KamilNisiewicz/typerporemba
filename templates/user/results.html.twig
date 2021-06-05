@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserController!{% endblock %}
+{% block meta_title %}Hello UserController!{% endblock %}
 
-{% block body %}
+{% block content %}
 <div class="example-wrapper">
     <h1>Hello {{ app.user.login }}</h1>
     {% for result in results %}
@@ -11,7 +11,7 @@
 	    <div style="padding:2px 5px;">{{ result.login }}</div>
 	    <div style="padding:2px 5px;">{{ result.points }}</div>
 	    <div style="padding:2px 5px;">
-		<a href="{{ path('user_results_details', { 'id': result.id }) }}">Zobacz szczegóły &raquo;</a>
+		<a href="{{ path('user_results_details', { 'userId': result.id }) }}">Zobacz szczegóły &raquo;</a>
 	    </div>
 	</div>
     {% endfor %}

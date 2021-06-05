@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserController!{% endblock %}
+{% block meta_title %}Hello UserController!{% endblock %}
 
-{% block body %}
+{% block content %}
 <div class="example-wrapper">
     <h1>Hello {{ app.user.login }}</h1>
     <h2>{{ userInfo.login }} - suma punktów: {{ points.points }}</h2>
@@ -10,7 +10,7 @@
     	<div style="display:flex;">
 	    <div style="padding:2px 5px;">{{ loop.index }}</div>
 	    <div style="padding:2px 5px;">{{ match.phase }}</div>
-	    <div style="padding:2px 5px;">{{ match.date | date('d-m-Y H:m:s') }}</div>
+	    <div style="padding:2px 5px;">{{ match.date | date('d-m-Y H:i:s') }}</div>
 	    <div style=" display:flex; padding:2px 5px;">
 		<img src="/images/flags/{{ match.homeTeamFlag }}" style="max-width:20px;" />
 		<div>{{ match.homeTeamName }}-</div>

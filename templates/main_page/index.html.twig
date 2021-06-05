@@ -1,30 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}typerporemba.pl{% endblock %}
+{% block meta_title %}Strona główna{% endblock %}
+{% block meta_desc %}Typer EURO 2021 - zapraszam do zabawy! typerporemba.pl{% endblock %}
 
-{% block body %}
-<div class="example-wrapper">
-    <h1>TYPER POREMBA</h1>
-    <h2>W puli <strong>{{ prizePool }}</strong> złotych</h2>
-
-    <a href="{{ path('regulations') }}">Regulamin</a>
-    <a href="{{ path('schedule') }}">Terminarz</a>
-
-    <form method="post" action="{{ path('user_login') }}">
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Login</label>
-    <input type="text" value="" name="login" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
-</div>
+{% block content %}
+    <h2 class="prize-info">
+	W puli do podziału dla zwycięzców <strong>{{ prizePool }}</strong> PLN
+    </h2>
+    {% if app.user %}
+    {% else %}
+    <div class="main-content">
+	<div class="main-block main-text">
+	    Witajcie <strong>Porembiorze i przyjaciele</strong> na stronie porembskiego typera EURO2020.<br/>
+	    Zapraszamy do dołączenia do naszej rywalizacji!<br/>
+	    Zapoznaj się z <a href="{{ path('regulations') }}" class="hover">regulaminem</a>, <a href="{{ path('user_register') }}" class="hover">utwórz konto</a> i walcz o zwycięstwo (i nagrody) w naszym typerze!<br/>
+	    Powodzenia!
+	</div>
+	<div class="main-block main-form">
+	    <form method="post" action="{{ path('user_login') }}">
+		<h3>Zaloguj się</h3>
+		<div class="form-line">
+		    <label for="inputEmail">Login</label>
+		    <input type="text" value="" name="login" id="inputEmail" class="input-text" required />
+		</div>
+		<div class="form-line">
+		    <label for="inputPassword">Hasło</label>
+		    <input type="password" name="password" id="inputPassword" class="input-text" required />
+		</div>
+		<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+		<button class="button-submit main-form-submit" type="submit">
+		    Zaloguj
+		</button>
+	    </form>
+	    <div class="main-links">
+		<a href="{{ path('user_register') }}" class="button-link main-button-link">Rejestracja</a>
+		<a href="{{ path('user_reset_password') }}" class="button-link main-button-link">Zapomniałeś hasła?</a>
+	    </div>
+	</div>
+    </div>
+    {% endif %}
 {% endblock %}

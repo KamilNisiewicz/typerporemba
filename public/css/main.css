@@ -1,0 +1,268 @@
+@import url('https://fonts.googleapis.com/css2?family=Signika+Negative:wght@300&display=swap');
+:root{
+    --bg_color:#131313;
+    --box_large:1200px;
+    --box_medium:700px;
+    --box_small:350px;
+    --font_signika:'Signika Negative', sans-serif;
+}
+
+body{
+    background:var(--bg_color);
+    color:#ffffff;
+    font-family:var(--font_signika);
+    font-size:16px;
+    margin:0;
+}
+
+.container{
+    margin:0px auto;
+    width:var(--box_large);
+}
+
+a{
+    color:#ffffff;
+    text-decoration:none;
+}
+
+a.hover{
+    background: linear-gradient(to right, gold, gold 50%, white 50%);
+    background-clip: text;
+    background-position: 100%;
+    background-size: 200% 100%;
+    overflow:hidden;
+    transition: background-position 275ms ease;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+a.hover:hover{
+  background-position: 0 100%;
+}
+
+.input-text{
+    border:2px solid #000000;
+    font-size:1rem;
+    margin:0.25rem 0;
+    padding:0.5rem;
+    width:250px;
+}
+
+.button-submit{
+    background:#2753b3;
+    border:0;
+    border-radius:5px;
+    color:#ffffff;
+    font-size:1rem;
+    font-weight:700;
+    line-height:2.5rem;
+    text-align:center;
+    transition: background 375ms ease;
+    width:200px;
+}
+
+.button-link{
+    background:#24a634;
+    border:0;
+    border-radius:5px;
+    color:#ffffff;
+    display:block;
+    font-size:1rem;
+    font-weight:700;
+    line-height:2.5rem;
+    text-align:center;
+    transition: background 375ms ease;
+    width:200px;
+}
+
+.button-submit:hover{
+    background:#163370;
+    cursor:pointer;
+}
+
+.button-link:hover{
+    background:#13591b;
+    cursor:pointer;
+}
+
+.header{
+    align-items:center;
+    display:flex;
+    justify-content:space-between;
+}
+
+.header h1{
+    margin:1.5rem 0;
+}
+
+.header h1 a{
+    font-size:2.5rem;
+}
+
+.header h1 i{
+    color:gold;
+    padding:0 0.5rem;
+}
+
+.menu a{
+    font-size:1.25rem;
+    padding:0 0.5rem;
+}
+
+footer{
+    background:gold;
+}
+
+.copyright{
+    color:#000000;
+    font-weight:700;
+    padding:0.5rem 0;
+    text-align:center;
+}
+
+/* MAIN PAGE START*/
+.prize-info{
+    font-size:2rem;
+    margin:1.5rem 0;
+    text-align:center;
+}
+
+.prize-info strong{
+    color:gold;
+    text-shadow:1px 1px 1px gold;
+}
+
+.main-content{
+    display:flex;
+    justify-content:space-evenly;
+    margin:3rem 0;
+}
+
+.main-content .main-block{
+    width:40%;
+}
+
+.main-content .main-text{
+    box-sizing:border-box;
+    font-size:1.25rem;
+    line-height:1.75rem;
+}
+
+.main-text a{
+    font-style:italic;
+}
+
+.main-form form{
+    background:#ffffff;
+    color:#000000;
+    margin:0 auto;
+    width:80%;
+}
+
+.main-form form h3{
+    font-size:1.5rem;
+    margin:0;
+    padding:1rem 2rem;
+}
+
+.main-form .form-line{
+    display:flex;
+    flex-direction:column;
+    padding:0 2rem 1rem;
+}
+
+.form-line label{
+    font-size:1.25rem;
+    line-height:2rem;
+}
+
+.main-form-submit{
+    margin:0 2rem 1.5rem;
+}
+
+.main-button-link{
+    font-size:1.25rem;
+    margin:1rem auto;
+    width:250px;
+}
+/* MAIN PAGE END*/
+
+@media all and (max-width:1100px){
+    .container{
+	width:var(--box_medium);
+    }
+    
+    .header h1{
+	margin:1rem 0;
+    }
+    
+    .header h1 a{
+	font-size:2rem;
+    }
+
+    /* MAIN PAGE START*/
+    .main-content .main-block{
+	width:45%;
+    }
+    
+    .main-content .main-text{
+	padding:0 2rem;
+    }
+    
+    .main-form form{
+	width:100%;
+    }
+    
+    .main-form form h3{
+	padding:1rem;
+    }
+    
+    .main-form .form-line{
+	padding:0 1rem 1rem;
+    }
+    
+    .main-form-submit{
+	margin:0 1rem 2rem;
+    }
+    /* MAIN PAGE END*/
+}
+
+@media all and (max-width:599px){
+    .container{
+	width:var(--box_small);
+    }
+    
+    .header{
+	flex-direction:column;
+    }
+    
+    .menu{
+	display:flex;
+	flex-direction:column;
+	margin:0 0 1rem;
+    }
+    
+    .menu a{
+	padding:0.4em 0;
+    }
+
+    /* MAIN PAGE START*/
+    .main-content{
+	flex-direction:column;
+    }
+    
+    .main-content .main-block{
+	width:100%;
+    }
+
+    .main-content .main-text{
+	margin:0 0 1rem;
+	padding:0 0.5rem;
+    }
+    
+    .main-form form{
+	margin:0 auto 2rem;
+	width:90%;
+    }
+    /* MAIN PAGE END*/
+}
