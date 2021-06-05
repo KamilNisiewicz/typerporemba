@@ -1,50 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block meta_title %}Hello UserController!{% endblock %}
+{% block meta_title %}Twoje dane{% endblock %}
 
 {% block content %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<h2 class="site-title">
+    Twoje dane - <span class="color-gold">{{ app.user.login }}</span>
+</h2>
+{% if app.user.active %}
+    {% if app.session.flashbag.peek('success') %}
+	<div class="info success-info">
+	{% for message in app.flashes('success') %}
+	    <p>{{ message|raw }}</p>
+	{% endfor %}
+    </div>
+    {% endif %}
+    {% if app.session.flashbag.peek('error') %}
+	<div class="info error-info">
+	{% for message in app.flashes('error') %}
+	    <p>{{ message|raw }}</p>
+	{% endfor %}
+	</div>
+    {% endif %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ app.user.login }} - ustawienia</h1>
-
-    {% if app.user.active %}
-	{% if app.session.flashbag.peek('error') %}
-	    {% for message in app.flashes('error') %}
-		<p>{{ message|raw }}</p>
-	    {% endfor %}
-	{% endif %}
-	{% if app.session.flashbag.peek('success') %}
-	    {% for message in app.flashes('success') %}
-		<p>{{ message|raw }}</p>
-	    {% endfor %}
-	{% endif %}
-	Zmiana hasła:
+    <h3 class="user-account-header">Zmień adres email:</h3>
+    <div class="form">
 	<form method="post" action="{{ path('user_change_email') }}">
-	    <label for="">Adres e-mail</label>
-	    <input type="text" value="{{ app.user.email }}" name="email" id="email" class="form-control">
-
-	    <button class="btn btn-lg btn-primary" type="submit">
+	    <div class="form-line">
+		<label for="email">Adres e-mail</label>
+		<input type="email" value="{{ app.user.email }}" name="email" id="email" class="input-text" required />
+	    </div>
+	    <button class="button-submit button-margin" type="submit">
 		Zmień adres e-mail
 	    </button>
 	</form>
-	Zmiana hasła:
+    </div>
+    <h3 class="user-account-header">Zmień hasła:</h3>
+    <div class="form">
 	<form method="post" action="{{ path('user_change_password') }}">
-	    <label for="">Hasło</label>
-	    <input type="password" value="" name="password1" id="password1" class="form-control">
-
-	    <label for="">Powtórz hasło</label>
-	    <input type="password" value="" name="password2" id="password2" class="form-control">
-	
-	    <button class="btn btn-lg btn-primary" type="submit">
+	    <div class="form-line">
+		<label for="password1">Hasło</label>
+		<input type="password" value="" name="password1" id="password1" class="input-text" required />
+	    </div>
+	    <div class="form-line">
+		<label for="password2">Powtórz hasło</label>
+		<input type="password" value="" name="password2" id="password2" class="input-text" required />
+	    </div>
+	    <button class="button-submit button-margin" type="submit">
 		Zmień hasło
 	    </button>
 	</form>
-    {% else %}
-	Twoje konto nie jest jeszcze aktywne!
-    {% endif %}
-</div>
+    </div>
+    <div class="big-margin"></div>
+{% else %}
+    {{ include('_partials/user_inactive_info.twig') }}
+{% endif %}
 {% endblock %}

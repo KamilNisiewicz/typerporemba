@@ -89,7 +89,7 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
 	if($isPasswordValid){
 	    return true;
 	}else{
-	    throw new CustomUserMessageAuthenticationException('Niestety, podałeś niewłaściwy adres email lub hasło!');
+	    throw new CustomUserMessageAuthenticationException('Niestety, podałeś niewłaściwy login lub hasło!');
 	}
     }
 

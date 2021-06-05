@@ -1,19 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block meta_title %}Hello UserController!{% endblock %}
+{% block meta_title %}Tabela wyników{% endblock %}
 
 {% block content %}
-<div class="example-wrapper">
-    <h1>Hello {{ app.user.login }}</h1>
+<h2 class="site-title">Tabela wyników</h2>
+{% if app.user.active %}
+
     {% for result in results %}
 	<div style="display:flex;">
 	    <div style="padding:2px 5px;">{{ loop.index }}</div>
 	    <div style="padding:2px 5px;">{{ result.login }}</div>
 	    <div style="padding:2px 5px;">{{ result.points }}</div>
 	    <div style="padding:2px 5px;">
-		<a href="{{ path('user_results_details', { 'userId': result.id }) }}">Zobacz szczegóły &raquo;</a>
+		<a href="{{ path('user_results_details', { 'userId': result.id }) }}" class="button-link">Zobacz szczegóły &raquo;</a>
 	    </div>
 	</div>
     {% endfor %}
-</div>
+{% else %}
+    {{ include('_partials/user_inactive_info.twig') }}
+{% endif %}
 {% endblock %}

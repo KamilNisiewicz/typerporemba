@@ -1,34 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block meta_title %}Log in!{% endblock %}
+{% block meta_title %}Rejestracja{% endblock %}
+{% block meta_desc %}Rejestracja w serwisie typerporemba.pl - utwórz konto już teraz!{% endblock %}
 
 {% block content %}
-<form method="post">
-    <h1 class="h3 mb-3 font-weight-normal">Rejestracja</h1>
-
-    {% if app.session.flashbag.peek('error') %}
-	{% for message in app.flashes('error') %}
-	    <p>{{ message|raw }}</p>
-	{% endfor %}
-    {% endif %}
-    
-    {% if app.session.flashbag.peek('success') %}
-	{% for message in app.flashes('success') %}
-	    <p>{{ message|raw }}</p>
-	{% endfor %}
-    {% endif %}
-
-    <label for="inputEmail">Email</label>
-    <input type="text" value="" name="email" id="inputEmail" class="form-control">
-    <label for="inputLogin">Login</label>
-    <input type="text" value="" name="login" id="inputLogin" class="form-control">
-    <label for="inputPassword1">Hasło</label>
-    <input type="password" name="password1" id="inputPassword1" class="form-control">
-    <label for="inputPassword2">Powtórz hasło</label>
-    <input type="password" name="password2" id="inputPassword2" class="form-control">
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Zarejestruj
-    </button>
-</form>
+<h2 class="site-title">
+    Rejestracja konta
+</h2>
+{% if app.session.flashbag.peek('success') %}
+    <div class="info success-info">
+    {% for message in app.flashes('success') %}
+	<p>{{ message|raw }}</p>
+    {% endfor %}
+    </div>
+{% endif %}
+{% if app.session.flashbag.peek('error') %}
+    <div class="info error-info">
+    {% for message in app.flashes('error') %}
+	<p>{{ message|raw }}</p>
+    {% endfor %}
+    </div>
+{% endif %}
+<div class="form">
+    <form method="post">
+	<div class="form-line">
+	    <label for="inputEmail">Email</label>
+	    <input type="email" value="" name="email" id="inputEmail" class="input-text" required />
+	</div>
+	<div class="form-line">
+	    <label for="inputLogin">Login</label>
+	    <input type="text" value="" name="login" id="inputLogin" class="input-text" required />
+	</div>
+	<div class="form-line">
+	    <label for="inputPassword1">Hasło</label>
+	    <input type="password" name="password1" id="inputPassword1" class="input-text" required />
+	</div>
+	<div class="form-line">
+	    <label for="inputPassword2">Powtórz hasło</label>
+	    <input type="password" name="password2" id="inputPassword2" class="input-text" required />
+	</div>
+	<div class="checkbox-line">
+	    <input type="checkbox" id="regulations" name="regulations" value="newsletter" required />
+	    <label for="regulations">Akceptuję <a href="{{ path('regulations') }}" target="_blank">Regulamin &raquo;</a></label>
+	</div>
+	<button class="button-submit button-margin" type="submit">
+	    Zarejestruj
+	</button>
+    </form>
+</div>
+<div class="big-margin"></div>
 {% endblock %}

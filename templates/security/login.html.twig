@@ -1,31 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block meta_title %}Log in!{% endblock %}
+{% block meta_title %}Logowanie{% endblock %}
+{% block meta_desc %}Zaloguj się do typerporemba.pl{% endblock %}
 
 {% block content %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Login</label>
-    <input type="text" value="" name="login" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
-<div class="main-links">
+<h2 class="site-title">
+    Logowanie
+</h2>
+{% if app.session.flashbag.peek('error') %}
+    {% for message in app.flashes('error') %}
+	<p>{{ message|raw }}</p>
+    {% endfor %}
+{% endif %}
+{% if error %}
+    <div class="info error-info">
+	{{ error.messageKey|trans(error.messageData, 'security') }}
+    </div>
+{% endif %}
+<div class="form">
+    <form method="post">
+	<div class="form-line">
+	    <label for="inputEmail">Login</label>
+	    <input type="text" value="" name="login" id="inputEmail" required class="input-text" />
+	</div>
+	<div class="form-line">
+	    <label for="inputPassword">Hasło</label>
+	    <input type="password" name="password" id="inputPassword" required class="input-text" />
+	</div>
+	<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+	<button type="submit" class="button-submit button-margin">Zaloguj</button>
+    </form>
+</div>
+<div class="main-links big-margin">
     <a href="{{ path('user_register') }}" class="button-link main-button-link">Rejestracja</a>
     <a href="{{ path('user_reset_password') }}" class="button-link main-button-link">Zapomniałeś hasła?</a>
 </div>

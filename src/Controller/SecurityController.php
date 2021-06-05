@@ -160,7 +160,7 @@ class SecurityController extends AbstractController
 	    }
 	}
 
-	$this->addFlash('success', "W przypadku istnienia konto o podanym adresie e-mail lub loginie została wysłana wiadomość mailowa! Sprawdź swoją skrzynkę!");
+	$this->addFlash('success', "W przypadku istnienia konta o podanym adresie e-mail lub loginie została wysłana wiadomość mailowa! Sprawdź swoją skrzynkę!");
 
 	return $this->redirectToRoute('user_reset_password');
     }

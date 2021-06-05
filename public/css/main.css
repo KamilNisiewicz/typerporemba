@@ -4,7 +4,10 @@
     --box_large:1200px;
     --box_medium:700px;
     --box_small:350px;
+    --error_color:#ff483b;
     --font_signika:'Signika Negative', sans-serif;
+    --success_color:#278a00;
+    --success_color_dark:#1b5405;
 }
 
 body{
@@ -18,6 +21,11 @@ body{
 .container{
     margin:0px auto;
     width:var(--box_large);
+}
+
+section{
+    min-height:80vh;
+    overflow:hidden;
 }
 
 a{
@@ -38,6 +46,44 @@ a.hover{
 
 a.hover:hover{
   background-position: 0 100%;
+}
+
+.site-title{
+    border-bottom:1px solid #ffffff;
+    font-size:1.5rem;
+    margin:0 0 1rem;
+    padding:0 0 0.5rem;
+}
+
+.info{
+    font-size:1.25rem;
+    font-weight:700;
+    margin:1rem 0;
+    padding:1rem;
+    text-align:center;
+}
+
+.info p{
+    margin:0;
+    padding:0;
+}
+
+.error-info{
+    background:var(--error_color);
+}
+
+.success-info{
+    background:var(--success_color);
+}
+
+.form{
+    background:#ffffff;
+    color:#000000;
+    display:flex;
+    justify-content:center;
+    margin:2rem auto;
+    padding:3rem 0;
+    width:40%
 }
 
 .input-text{
@@ -83,6 +129,25 @@ a.hover:hover{
 .button-link:hover{
     background:#13591b;
     cursor:pointer;
+}
+
+.button-margin{
+    margin:1rem 0 0;
+}
+
+.big-margin{
+    margin:1rem 0 5rem;
+}
+
+.user-info{
+    color:gold;
+    font-size:1.5rem;
+    line-height:2rem;
+    text-align:center;
+}
+
+.color-gold{
+    color:gold;
 }
 
 .header{
@@ -165,15 +230,37 @@ footer{
     padding:1rem 2rem;
 }
 
-.main-form .form-line{
+form .form-line{
     display:flex;
     flex-direction:column;
-    padding:0 2rem 1rem;
 }
 
-.form-line label{
+form .checkbox-line{
+    margin:0.5rem 0 0;
+}
+
+.checkbox-line a{
+    color:#000000;
+    font-style:italic;
+}
+
+.checkbox-line input{
+    height:1rem;
+    margin:5px;
+    width:1rem;
+}
+
+.checkbox-line:hover{
+    cursor:pointer;
+}
+
+form label{
     font-size:1.25rem;
     line-height:2rem;
+}
+
+.main-form form .form-line{
+    padding:0 2rem 1rem;
 }
 
 .main-form-submit{
@@ -185,7 +272,50 @@ footer{
     margin:1rem auto;
     width:250px;
 }
-/* MAIN PAGE END*/
+/* MAIN PAGE END */
+
+/* USER PAGE START */
+.user-tiles{
+    display:flex;
+    justify-content:center;
+    margin:3rem 0;
+}
+
+.tile{
+    align-items:center;
+    background:var(--success_color);
+    display:flex;
+    flex-direction:column;
+    margin:0 2rem;
+    padding:2rem;
+    transition: background 375ms ease;
+}
+
+.tile.tile-index{
+    margin:3rem auto;
+    width:10rem;
+}
+
+.tile:hover{
+    background:var(--success_color_dark);
+}
+
+.tile i{
+    font-size:4rem;
+}
+
+.tile strong{
+    font-size:1.25rem;
+    margin:1rem 0 0;
+    min-width:8rem;
+    text-align:center;
+}
+
+.user-account-header{
+    font-size:1.25rem;
+    text-align:center;
+}
+/* USER PAGE END */
 
 @media all and (max-width:1100px){
     .container{
@@ -198,6 +328,14 @@ footer{
     
     .header h1 a{
 	font-size:2rem;
+    }
+
+    .form{
+	width:70%;
+    }
+
+    .menu.logged-menu a{
+	padding:0 0.25em;
     }
 
     /* MAIN PAGE START*/
@@ -217,14 +355,23 @@ footer{
 	padding:1rem;
     }
     
-    .main-form .form-line{
+    .main-form form .form-line{
 	padding:0 1rem 1rem;
     }
     
     .main-form-submit{
 	margin:0 1rem 2rem;
     }
-    /* MAIN PAGE END*/
+    /* MAIN PAGE END */
+    /* USER PAGE START */
+    .tile i{
+	font-size:3rem;
+    }
+
+    .tile strong{
+	min-width:7rem;
+    }
+    /* USER PAGE END */
 }
 
 @media all and (max-width:599px){
@@ -242,8 +389,14 @@ footer{
 	margin:0 0 1rem;
     }
     
-    .menu a{
+    .menu a, .menu.logged-menu a{
 	padding:0.4em 0;
+	text-align:center;
+    }
+
+    .form{
+	padding:2rem 0;
+	width:90%;
     }
 
     /* MAIN PAGE START*/
@@ -265,4 +418,13 @@ footer{
 	width:90%;
     }
     /* MAIN PAGE END*/
+    /* USER PAGE START */
+    .user-tiles{
+	flex-direction:column;
+    }
+    
+    .tile{
+	margin:1rem auto;
+    }
+    /* USER PAGE END */
 }

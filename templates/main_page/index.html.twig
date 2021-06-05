@@ -8,6 +8,14 @@
 	W puli do podziału dla zwycięzców <strong>{{ prizePool }}</strong> PLN
     </h2>
     {% if app.user %}
+	{% if app.user.active %}
+	<a href="{{ path('user') }}" class="tile tile-index">
+	    <i class="far fa-user"></i>
+	    <strong>Twoje konto</strong>
+	</a>
+	{% else %}
+	    {{ include('_partials/user_inactive_info.twig') }}
+	{% endif %}
     {% else %}
     <div class="main-content">
 	<div class="main-block main-text">
