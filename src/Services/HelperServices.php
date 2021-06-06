@@ -33,6 +33,20 @@ class HelperServices
 
 	return $randomString;
     }
+    
+    public function checkScore($homeTeam, $awayTeam): bool {
+	$isNumeric = is_numeric($homeTeam) && is_numeric($awayTeam);
+	$homeTeamScore = $homeTeam >= 0 ? 1 : 0;
+	$awayTeamScore = $awayTeam >= 0 ? 1 : 0;
+	$homeTeamScoreBig = $homeTeam > 99 ? 0 : 1;
+	$awayTeamScoreBig = $awayTeam > 99 ? 0 : 1;
+	
+	if($isNumeric && $homeTeamScore && $awayTeamScore && $homeTeamScoreBig && $awayTeamScoreBig){
+	    return true;
+	}else{
+	    return false;
+	}
+    }
 
     public function proper($text): string
     {

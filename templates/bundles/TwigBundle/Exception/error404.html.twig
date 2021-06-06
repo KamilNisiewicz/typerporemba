@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block meta_title %}Error 404{% endblock %}
+{% block meta_desc %}Strony nie znaleziono - typerporemba.pl{% endblock %}
+
+{% block content %}
+<div class="error">
+    <i class="fas fa-exclamation-triangle"></i>
+    Strony nie znaleziono
+    <a href="{{ path('main_page') }}" class="button-link">Strona główna</a>
+</div>
+{% endblock %}

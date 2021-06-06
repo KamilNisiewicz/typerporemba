@@ -5,7 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block meta_title %}{% endblock %} - typerporemba.pl</title>
         <meta name="description" content="{% block meta_desc %}{% endblock %}">
-        
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
+
         {% block stylesheets %}
 	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 	    <link rel="stylesheet" href="{{ asset('css/main.css') }}?{{ date().timestamp }}" />
@@ -13,6 +15,15 @@
         {% block javascripts %}
 	    <script src="{{ asset('js/main.js') }}?{{ date().timestamp }}"></script>
         {% endblock %}
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-326CCB6TDQ"></script>
+	<script>
+	    window.dataLayer = window.dataLayer || [];
+	    function gtag(){dataLayer.push(arguments);}
+	    gtag('js', new Date());
+	    gtag('config', 'G-326CCB6TDQ');
+	</script>
     </head>
     <body>
 	{{ include('_partials/header.twig') }}

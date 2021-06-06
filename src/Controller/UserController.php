@@ -18,9 +18,7 @@ class UserController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
+        return $this->render('user/index.html.twig', []);
     }
 
     /**
@@ -28,9 +26,7 @@ class UserController extends AbstractController
      */
     public function settings(): Response
     {
-        return $this->render('user/settings.html.twig', [
-            'controller_name' => 'UserControllerSettings',
-        ]);
+        return $this->render('user/settings.html.twig', []);
     }
 
     /**
@@ -50,7 +46,7 @@ class UserController extends AbstractController
     /**
      * @Route("/user/details/{userId}", name="user_results_details")
      */
-    public function user(int $userId): Response
+    public function userDetails(int $userId): Response
     {
 	$userInfo = $this->getDoctrine()
 	    ->getRepository(Users::class)
@@ -63,6 +59,10 @@ class UserController extends AbstractController
 	$points = $this->getDoctrine()
 	    ->getRepository(Bets::class)
 	    ->sumUserPoints($userId);
+
+	if(!$userInfo){
+	    return $this->redirectToRoute('user');
+	}
 
         return $this->render('user/details.html.twig', [
 	    'userInfo' => $userInfo,
@@ -136,7 +136,7 @@ class UserController extends AbstractController
 	$homeTeam = $helperServices->proper($request->get("home_team"));
 	$awayTeam = $helperServices->proper($request->get("away_team"));
 
-	if($userId && $betId && $homeTeam && $awayTeam){
+	if($userId && $betId){
 	    $bet = $this->getDoctrine()
 		->getRepository(Bets::class)
 		->findOneBy(
@@ -151,12 +151,16 @@ class UserController extends AbstractController
 		$matchDate = $bet->getMatch()->getDate()->format('Y-m-d H:i:s');
 
 		if($matchDate > $now){
-		    $bet->setHomeTeamScore($homeTeam);
-		    $bet->setAwayTeamScore($awayTeam);
-		    $em->flush();
-		    $this->addFlash('success', 'Wynik poprawnie zmieniony!');
-		    $log = $now . ' User: ' . $userId . ' bet match: ' . $betId . ' : ' . $homeTeam . '-' . $awayTeam;
-		    file_put_contents('../var/log/bets.txt', "$log\n", FILE_APPEND);
+		    if($helperServices->checkScore($homeTeam, $awayTeam)){
+			$bet->setHomeTeamScore($homeTeam);
+			$bet->setAwayTeamScore($awayTeam);
+			$em->flush();
+			$this->addFlash('success', 'Wynik poprawnie zmieniony!');
+			$log = $now . ' User: ' . $userId . ' bet match: ' . $betId . ' : ' . $homeTeam . '-' . $awayTeam;
+			file_put_contents('../var/log/bets.txt', "$log\n", FILE_APPEND);
+		    }else{
+			$this->addFlash('error', 'Jedna z podanych liczb ma nieprawidłowy format!');
+		    }
 		}else{
 		    $this->addFlash('error', 'Za późno! Mecz już się rozpoczął!');
 		}

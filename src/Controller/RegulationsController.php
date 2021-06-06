@@ -13,8 +13,6 @@ class RegulationsController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('regulations/index.html.twig', [
-            'controller_name' => 'RegulationsController',
-        ]);
+        return $this->render('regulations/index.html.twig', []);
     }
 }

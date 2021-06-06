@@ -1,0 +1,10 @@
+<div class="schedule-result">
+    <p class="mobile-info">Typ:</p>
+    {% if match.userHomeTeamScore is not null and match.userAwayTeamScore is not null %}
+	<p>{{ match.userHomeTeamScore }}</p>
+	<p>-</p>
+	<p>{{ match.userAwayTeamScore }}</p>
+    {% else %}
+	<p><span class="color-error">Brak!</span></p>
+    {% endif %}
+</div>

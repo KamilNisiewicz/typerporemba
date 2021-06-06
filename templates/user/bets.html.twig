@@ -4,107 +4,81 @@
 
 {% block content %}
 {% if app.user.active %}
-<h2 class="site-title">Twoje typy</h2>
-    <h2>Dzisiejsze mecze</h2>
-    {% for match in today %}
-    	<div style="display:flex;">
-	    <div style="padding:2px 5px;">{{ match.phase }}</div>
-	    <div style="padding:2px 5px;">{{ match.date | date('d-m-Y H:i:s') }}</div>
-	    <div style=" display:flex; padding:2px 5px;">
-		<img src="/images/flags/{{ match.homeTeamFlag }}" style="max-width:20px;" />
-		<div>{{ match.homeTeamName }}-</div>
-		<div>{{ match.awayTeamName }}</div>
-		<img src="/images/flags/{{ match.awayTeamFlag }}" style="max-width:20px;" />
+<h2 class="site-title">Twoje typy - <span class="color-gold">{{ app.user.login }}</span></h2>
+<h3 class="small-header color-gold">Dzisiejsze mecze</h3>
+{% if today | length > 0 %}
+    <div class="schedule schedule-with-results">
+	{{ include('_partials/schedule_header.twig') }}
+	{% for match in today %}
+	    <div class="schedule-match">
+		{{ include('_partials/schedule_info.twig') }}
+		{{ include('_partials/schedule_teams.twig') }}
+		{{ include('_partials/schedule_user_result.twig') }}
+		{{ include('_partials/schedule_bet.twig') }}
 	    </div>
-	    <div style=" display:flex; padding:2px 5px;">
-		{% if match.userHomeTeamScore and match.userAwayTeamScore %}
-		    <div>{{ match.userHomeTeamScore }}-</div>
-		    <div>{{ match.userAwayTeamScore }}</div>
-		{% else %}
-		    Brak
-		{% endif %}
+	{% endfor %}
+    </div>
+{% else %}
+    <div class="user-info">
+	Brak meczów
+    </div>
+{% endif %}
+<h3 class="small-header color-gold">Jutrzejsze mecze</h3>
+{% if tomorrow | length > 0 %}
+    <div class="schedule schedule-with-results">
+	{{ include('_partials/schedule_header.twig') }}
+	{% for match in tomorrow %}
+	    <div class="schedule-match">
+		{{ include('_partials/schedule_info.twig') }}
+		{{ include('_partials/schedule_teams.twig') }}
+		{{ include('_partials/schedule_user_result.twig') }}
+		{{ include('_partials/schedule_bet.twig') }}
 	    </div>
-	    <div style="padding:2px 5px;">
-		{% if match.date > date() %}
-		    <a href="{{ path('user_bet', { 'betId': match.betId }) }}">Zmień typ &raquo;</a>
-		{% endif %}
+	{% endfor %}
+    </div>
+{% else %}
+    <div class="user-info">
+	Brak meczów
+    </div>
+{% endif %}
+<h3 class="small-header color-gold">Pozostałe mecze</h3>
+{% if rest | length > 0 %}
+    <div class="schedule schedule-with-results">
+	{{ include('_partials/schedule_header.twig') }}
+	{% for match in rest %}
+	    <div class="schedule-match">
+		{{ include('_partials/schedule_info.twig') }}
+		{{ include('_partials/schedule_teams.twig') }}
+		{{ include('_partials/schedule_user_result.twig') }}
+		{{ include('_partials/schedule_bet.twig') }}
 	    </div>
-	</div>
-    {% endfor %}
-    <h2>Jutrzejsze mecze</h2>
-    {% for match in tomorrow %}
-    	<div style="display:flex;">
-	    <div style="padding:2px 5px;">{{ match.phase }}</div>
-	    <div style="padding:2px 5px;">{{ match.date | date('d-m-Y H:i:s') }}</div>
-	    <div style=" display:flex; padding:2px 5px;">
-		<img src="/images/flags/{{ match.homeTeamFlag }}" style="max-width:20px;" />
-		<div>{{ match.homeTeamName }}-</div>
-		<div>{{ match.awayTeamName }}</div>
-		<img src="/images/flags/{{ match.awayTeamFlag }}" style="max-width:20px;" />
+	{% endfor %}
+    </div>
+{% else %}
+    <div class="user-info">
+	Brak meczów
+    </div>
+{% endif %}
+<h3 class="small-header color-gold">Zakończone mecze</h3>
+{% if finished | length > 0 %}
+    <div class="schedule schedule-with-results">
+	{{ include('_partials/schedule_header_finished.twig') }}
+	{% for match in finished %}
+	    <div class="schedule-match">
+		{{ include('_partials/schedule_info.twig') }}
+		{{ include('_partials/schedule_teams.twig') }}
+		{{ include('_partials/schedule_match_result.twig') }}
+		{{ include('_partials/schedule_user_result.twig') }}
+		{{ include('_partials/schedule_points.twig') }}
 	    </div>
-	    <div style=" display:flex; padding:2px 5px;">
-		{% if match.userHomeTeamScore and match.userAwayTeamScore %}
-		<div>{{ match.userHomeTeamScore }}-</div>
-		<div>{{ match.userAwayTeamScore }}</div>
-		{% else %}
-		    Brak
-		{% endif %}
-	    </div>
-	    <div style="padding:2px 5px;">
-		{% if match.date > date() %}
-		    <a href="{{ path('user_bet', { 'betId': match.betId }) }}">Zmień typ &raquo;</a>
-		{% endif %}	    
-	    </div>
-	</div>
-    {% endfor %}
-    <h2>Pozostałe mecze</h2>
-    {% for match in rest %}
-    	<div style="display:flex;">
-	    <div style="padding:2px 5px;">{{ match.phase }}</div>
-	    <div style="padding:2px 5px;">{{ match.date | date('d-m-Y H:i:s') }}</div>
-	    <div style=" display:flex; padding:2px 5px;">
-		<img src="/images/flags/{{ match.homeTeamFlag }}" style="max-width:20px;" />
-		<div>{{ match.homeTeamName }}-</div>
-		<div>{{ match.awayTeamName }}</div>
-		<img src="/images/flags/{{ match.awayTeamFlag }}" style="max-width:20px;" />
-	    </div>
-	    <div style=" display:flex; padding:2px 5px;">
-		{% if match.userHomeTeamScore and match.userAwayTeamScore %}
-		    <div>{{ match.userHomeTeamScore }}-</div>
-		    <div>{{ match.userAwayTeamScore }}</div>
-		{% else %}
-		    Brak
-		{% endif %}
-	    </div>
-	    <div style="padding:2px 5px;">
-		{% if match.date > date() %}
-		    <a href="{{ path('user_bet', { 'betId': match.betId }) }}">Zmień typ &raquo;</a>
-		{% endif %}
-	    </div>
-	</div>
-    {% endfor %}
-    <h2>Zakończone mecze</h2>
-    {% for match in finished %}
-    	<div style="display:flex;">
-	    <div style="padding:2px 5px;">{{ match.phase }}</div>
-	    <div style="padding:2px 5px;">{{ match.date | date('d-m-Y H:i:s') }}</div>
-	    <div style=" display:flex; padding:2px 5px;">
-		<img src="/images/flags/{{ match.homeTeamFlag }}" style="max-width:20px;" />
-		<div>{{ match.homeTeamName }}-</div>
-		<div>{{ match.awayTeamName }}</div>
-		<img src="/images/flags/{{ match.awayTeamFlag }}" style="max-width:20px;" />
-	    </div>
-	    <div style=" display:flex; padding:2px 5px;">
-		<div>{{ match.homeTeamScore }}-</div>
-		<div>{{ match.awayTeamScore }}</div>
-	    </div>
-	    <div style=" display:flex; padding:2px 5px;">
-		<div>{{ match.userHomeTeamScore }}-</div>
-		<div>{{ match.userAwayTeamScore }}</div>
-	    </div>
-	    <div style="padding:2px 5px;" class={{ points_class(match.points) }}>{{ match.points }}</div>
-	</div>
-    {% endfor %}
+	{% endfor %}
+    </div>
+{% else %}
+    <div class="user-info">
+	Brak meczów
+    </div>
+{% endif %}
+<div class="big-margin"></div>
 {% else %}
     {{ include('_partials/user_inactive_info.twig') }}
 {% endif %}

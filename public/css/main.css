@@ -197,6 +197,48 @@ footer{
     text-align:center;
 }
 
+.useful-links{
+    color:#000000;
+    display:flex;
+    flex-direction:column;
+    padding:0.5rem 0 0;
+}
+
+.useful-links h5{
+    font-size:1.25rem;
+    margin:0 0 0.5rem;
+}
+
+.useful-links a{
+    color:#000000;
+    font-size:1rem;
+    font-style:italic;
+    font-weight:700;
+    margin:0 2rem 0 0;
+    transition: text-shadow 350ms ease;
+}
+
+.useful-links a:hover{
+    text-shadow:1px 1px 1px #000000;
+}
+
+.error{
+    align-items:center;
+    color:gold;
+    display:flex;
+    flex-direction:column;
+    font-size:2rem;
+    margin:3rem 0;
+}
+
+.error > *{
+    margin:1rem 0;
+}
+
+.error i{
+    font-size:5rem;
+}
+
 /* MAIN PAGE START*/
 .prize-info{
     font-size:2rem;
@@ -337,7 +379,7 @@ form label{
     margin:1rem 0;
 }
 
-.schedule-match, .schedule-info, .schedule-teams{
+.schedule-match, .schedule-info, .schedule-teams, .schedule-result, .schedule-points{
     display:flex;
 }
 
@@ -347,12 +389,49 @@ form label{
     margin:0.5rem 0;
 }
 
-.schedule-info p, .schedule-teams > *{
+.schedule-info{
+    min-width:20rem;
+}
+
+.schedule-info p, .schedule-teams > *, .schedule-points > *{
     margin:0 0.5rem;
+}
+
+.schedule-result{
+    min-width:5rem;
+}
+
+.schedule-result > *{
+    margin:0 0.25rem;
 }
 
 .schedule-teams img{
     max-height:1.5rem;
+}
+
+.schedule-teams.schedule-teams-long{
+    min-width:30rem;
+}
+
+.schedule-points{
+    font-weight:700;
+    min-width:5rem;
+}
+
+.schedule-points.full{
+    color:gold;
+}
+
+.schedule-points.half{
+    color:silver;
+}
+
+.schedule-points.none, .color-error{
+    color:var(--error_color);
+}
+
+.mobile-info{
+    display:none;
 }
 
 .results, .result{
@@ -383,6 +462,37 @@ form label{
 
 .result-points{
     min-width:5rem;
+}
+
+.user-bet{
+    align-items:center;
+    display:flex;
+    flex-direction:column;
+    font-size:1.5rem;
+    margin:2rem 0;
+    text-align:center;
+}
+
+.bet-info, .bet-teams, .bet-inputs{
+    align-items:center;
+    display:flex;
+    margin:0 0 1rem;
+}
+
+.bet-info > *, .bet-teams > *, .bet-inputs > *{
+    margin:0 0.5rem;
+}
+
+.bet-teams img{
+    max-height:1.5rem;
+}
+
+.bet-inputs input{
+    border-radius:5px;
+    font-size:1.5rem;
+    padding:0.25rem;
+    text-align:center;
+    width:4rem;
 }
 /* USER PAGE END */
 /* REGULATIONS START */
@@ -446,11 +556,34 @@ form label{
     .tile strong{
 	min-width:7rem;
     }
+    
     .schedule-info p, .schedule-teams > *{
 	margin:0 0.25rem;
     }
+    
     .result-login{
 	min-width:20rem;
+    }
+    
+    .schedule.schedule-with-results .schedule-match{
+	flex-wrap:wrap;
+	margin:1.5rem 0;
+    }
+    
+    .schedule.schedule-with-results .schedule-info, .schedule.schedule-with-results .schedule-teams{
+	min-width:100%;
+    }
+    
+    .schedule-match.schedule-match-header{
+	display:none;
+    }
+
+    .schedule-bet .button-link{
+	margin:0.5rem 0;
+    }
+    
+    .mobile-info{
+	display:block;
     }
     /* USER PAGE END */
 }
@@ -480,6 +613,18 @@ form label{
 	width:90%;
     }
 
+    .useful-links-container{
+	display:flex;
+	flex-direction:column;
+    }
+
+    .useful-links h5{
+	margin:0;
+    }
+
+    .useful-links a{
+	margin:0.5rem 0;
+    }
     /* MAIN PAGE START*/
     .main-content{
 	flex-direction:column;
@@ -517,6 +662,10 @@ form label{
     .schedule-match > *{
 	align-items:center;
 	margin:0.25rem 0;
+    }
+    
+    .schedule-points > *{
+	margin:0.25rem;
     }
 
     .result{

@@ -12,7 +12,7 @@
 	{% for message in app.flashes('success') %}
 	    <p>{{ message|raw }}</p>
 	{% endfor %}
-    </div>
+	</div>
     {% endif %}
     {% if app.session.flashbag.peek('error') %}
 	<div class="info error-info">

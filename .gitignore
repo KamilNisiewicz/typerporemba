@@ -5,6 +5,7 @@
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /public/images/
+/public/favicon.ico
 /var/
 /vendor/
 .htaccess

@@ -16,7 +16,7 @@ class MainPageController extends AbstractController
     {
 	$activeUsers = $this->getDoctrine()
 	    ->getRepository(Users::class)
-	    ->findAll(['active' => 1]);
+	    ->findBy(['active' => 1]);
 
 	$premium = $this->getParameter("premium");
 	$prizePool = (count($activeUsers) * $premium);

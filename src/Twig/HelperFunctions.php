@@ -17,7 +17,21 @@ class HelperFunctions extends AbstractExtension
 
     public function getPointsClass(int $points): string
     {
-        return "points-" . $points;
+	$class = "";
+	
+	switch ($points) {
+	    case 0:
+	    $class="none";
+	    break;
+	    case 2:
+	    $class="half";
+	    break;
+	    case 5:
+	    $class="full";
+	    break;
+	}
+
+        return $class;
     }
 
     public function getResultClass(string $index): string
