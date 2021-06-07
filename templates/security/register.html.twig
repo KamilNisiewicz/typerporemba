@@ -22,22 +22,22 @@
     </div>
 {% endif %}
 <div class="form">
-    <form method="post">
+    <form method="post" onSubmit="return options.checkFormPasswords()">
+	<div class="form-line">
+	    <label for="inputLogin">Login <span class="login-info">(tylko litery i cyfry)</span></label>
+	    <input type="text" value="" name="login" id="inputLogin" class="input-text" pattern="[A-Za-z0-9]+" required />
+	</div>
 	<div class="form-line">
 	    <label for="inputEmail">Email</label>
 	    <input type="email" value="" name="email" id="inputEmail" class="input-text" required />
 	</div>
 	<div class="form-line">
-	    <label for="inputLogin">Login</label>
-	    <input type="text" value="" name="login" id="inputLogin" class="input-text" required />
+	    <label for="password1">Hasło</label>
+	    <input type="password" name="password1" id="password1" class="input-text" required />
 	</div>
 	<div class="form-line">
-	    <label for="inputPassword1">Hasło</label>
-	    <input type="password" name="password1" id="inputPassword1" class="input-text" required />
-	</div>
-	<div class="form-line">
-	    <label for="inputPassword2">Powtórz hasło</label>
-	    <input type="password" name="password2" id="inputPassword2" class="input-text" required />
+	    <label for="password2">Powtórz hasło</label>
+	    <input type="password" name="password2" id="password2" class="input-text" required />
 	</div>
 	<div class="checkbox-line">
 	    <input type="checkbox" id="regulations" name="regulations" value="newsletter" required />

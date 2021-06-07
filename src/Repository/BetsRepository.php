@@ -29,6 +29,8 @@ class BetsRepository extends ServiceEntityRepository
 		'u.id',
 		'u.login')
 	    ->leftJoin(Users::class, 'u', 'WITH', 'u.id = b.user')
+	    ->leftJoin(Matches::class, 'm', 'WITH', 'm.id = b.match')
+	    ->where('m.finished = true')
 	    ->groupBy('u.id', 'u.login')
 	    ->orderBy('points', 'DESC')
 	    ->getQuery()

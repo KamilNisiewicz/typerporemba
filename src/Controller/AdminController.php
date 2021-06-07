@@ -6,17 +6,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class RegulationsController extends AbstractController
+class AdminController extends AbstractController
 {
     /**
-     * @Route("/regulations", name="regulations")
+     * @Route("/admin", name="admin")
      */
     public function index(): Response
     {
-	$premium = $this->getParameter("premium");
-
-        return $this->render('regulations/index.html.twig', [
-	    'premium' => $premium
+        return $this->render('admin/index.html.twig', [
+            'controller_name' => 'AdminController',
         ]);
     }
 }

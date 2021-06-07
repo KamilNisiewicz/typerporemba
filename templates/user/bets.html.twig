@@ -5,6 +5,41 @@
 {% block content %}
 {% if app.user.active %}
 <h2 class="site-title">Twoje typy - <span class="color-gold">{{ app.user.login }}</span></h2>
+<h3 class="small-header color-gold">Bonusy</h3>
+{% if app.session.flashbag.peek('success') %}
+<div class="info success-info">
+    {% for message in app.flashes('success') %}
+	<p>{{ message|raw }}</p>
+    {% endfor %}
+</div>
+{% endif %}
+{% if app.session.flashbag.peek('error') %}
+    <div class="info error-info">
+    {% for message in app.flashes('error') %}
+	<p>{{ message|raw }}</p>
+    {% endfor %}
+    </div>
+{% endif %}
+<form method="post" action="{{ path('user_bonus_bet', { 'betId': bonus.bonusId }) }}" class="user-bonus">
+    <div class="form-line-user">
+	<label for="champion">Mistrz Europy</label>
+	<select name="champion" id="champion">
+	{% for team in teams %}
+	    <option value="{{ team.id }}" {% if team.id == bonus.id %}selected="selected"{% endif %}>{{ team.name }}</option>
+	{% endfor %}
+	</select>
+    </div>
+    <div class="form-line-user">
+	<label for="scorer">Król strzelców</label>
+	<input type="text" value="{{ bonus.topScorer }}" name="scorer" id="scorer" class="input-text" />
+	<p class="scorer-info">Prośba o wpisanie pełnego imienia i nazwiska zawodnika</p>
+    </div>
+    {% if bonusDate > date() %}
+    <button type="submit" class="button-submit button">
+	Zapisz &raquo;
+    </button>
+    {% endif %}
+</form>
 <h3 class="small-header color-gold">Dzisiejsze mecze</h3>
 {% if today | length > 0 %}
     <div class="schedule schedule-with-results">

@@ -88,6 +88,7 @@ a.hover:hover{
 
 .input-text{
     border:2px solid #000000;
+    box-sizing:border-box;
     font-size:1rem;
     margin:0.25rem 0;
     padding:0.5rem;
@@ -129,6 +130,10 @@ a.hover:hover{
 .button-link:hover{
     background:#13591b;
     cursor:pointer;
+}
+
+.login-info{
+    font-style:italic;
 }
 
 .button-margin{
@@ -494,11 +499,57 @@ form label{
     text-align:center;
     width:4rem;
 }
+
+.bonus-details, .bonus-detail{
+    display:flex;
+}
+
+.bonus-details{
+    flex-direction:column;
+}
+
+.bonus-detail{
+    align-items:center;
+    font-size:1.25rem;
+}
+
+.bonus-detail > *{
+    margin:0.25rem;
+}
+
+form .form-line-user{
+    align-items:center;
+    display:flex;
+    margin:0.5em 0;
+}
+
+form .form-line-user label{
+    min-width:10rem;
+}
+
+form .form-line-user select{
+    box-sizing:border-box;
+    font-size:1rem;
+    padding:0.5rem;
+    width:250px;
+}
+
+.scorer-info{
+    margin:0 1rem;
+}
 /* USER PAGE END */
 /* REGULATIONS START */
 .regulations li{
     font-size:1.25rem;
     margin:0.5rem 0;
+}
+
+.regulations li ul{
+    padding:0 0 0 1rem;
+}
+
+.regulations .smaller-text{
+    font-size:1rem;
 }
 /* REGULATIONS END */
 
@@ -683,6 +734,15 @@ form label{
     .result-details{
 	flex:0;
 	margin:0.5rem 0;
+    }
+    
+    form .form-line-user{
+	align-items:start;
+	flex-direction:column;
+    }
+
+    .scorer-info{
+	margin:0;
     }
     /* USER PAGE END */
 }

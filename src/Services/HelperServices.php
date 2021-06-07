@@ -8,7 +8,7 @@ class HelperServices
     public function checkIsPasswordValid(string $formLogin, string $formPassword, string $userPassword): bool
     {
 	$hashedPassword = $this->getHashedPassword($formLogin, $formPassword);
-	
+
 	if($hashedPassword === $userPassword){
 	    return true;
 	}else{

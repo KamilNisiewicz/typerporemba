@@ -6,6 +6,7 @@
 parameters:
   base_email: typerporemba@gmail.com
   premium: 20
+  bonus_date: '11-06-2021 23:59:59'
 
 services:
     # default configuration for services in *this* file

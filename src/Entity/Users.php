@@ -164,6 +164,10 @@ class Users implements UserInterface
     {
 	$roles = ['ROLE_USER'];
 
+	if($this->getId() == 1){
+	    array_push($roles, 'ROLE_ADMIN');
+	}
+
 	return $roles;
     }
 

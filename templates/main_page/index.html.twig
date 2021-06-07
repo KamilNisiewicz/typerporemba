@@ -5,7 +5,7 @@
 
 {% block content %}
     <h2 class="prize-info">
-	W puli do podziału dla zwycięzców <strong>{{ prizePool }}</strong> PLN
+	Całkowita pula do podziału dla zwycięzców <strong>{{ prizePool }}</strong> PLN
     </h2>
     {% if app.user %}
 	{% if app.user.active %}
@@ -19,7 +19,7 @@
     {% else %}
     <div class="main-content">
 	<div class="main-block main-text">
-	    Witajcie <strong>Porembiorze i przyjaciele</strong> na stronie porembskiego typera EURO2020.<br/>
+	    Witajcie <strong>Porembiorze i przyjaciele</strong> na stronie osiedlowego typera EURO2020.<br/>
 	    Zapraszamy do dołączenia do naszej rywalizacji!<br/>
 	    Zapoznaj się z <a href="{{ path('regulations') }}" class="hover">regulaminem</a>, <a href="{{ path('user_register') }}" class="hover">utwórz konto</a> i walcz o zwycięstwo (i nagrody) w naszym typerze!<br/>
 	    Powodzenia!

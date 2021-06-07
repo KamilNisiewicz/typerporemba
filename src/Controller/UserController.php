@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Bets;
+use App\Entity\BetsBonus;
+use App\Entity\Teams;
 use App\Entity\Users;
 use App\Services\HelperServices;
 use Psr\Log\LoggerInterface;
@@ -60,6 +62,10 @@ class UserController extends AbstractController
 	    ->getRepository(Bets::class)
 	    ->sumUserPoints($userId);
 
+	$bonus = $this->getDoctrine()
+	    ->getRepository(BetsBonus::class)
+	    ->getUserBonuses($userId);
+
 	if(!$userInfo){
 	    return $this->redirectToRoute('user');
 	}
@@ -67,7 +73,8 @@ class UserController extends AbstractController
         return $this->render('user/details.html.twig', [
 	    'userInfo' => $userInfo,
 	    'details' => $details,
-	    'points' => $points
+	    'points' => $points,
+	    'bonus' => $bonus
         ]);
     }
 
@@ -95,11 +102,25 @@ class UserController extends AbstractController
 	    ->getRepository(Bets::class)
 	    ->getUserMatches($userId, 'rest');
 
+	$bonus = $this->getDoctrine()
+	    ->getRepository(BetsBonus::class)
+	    ->getUserBonuses($userId);
+
+	$teams = $this->getDoctrine()
+	    ->getRepository(Teams::class)
+	    ->findBy([], ['name' => 'ASC']);
+	    
+	$bonusDate = $this->getParameter("bonus_date");
+	$bonusDate = new \Datetime($bonusDate);
+
 	return $this->render('user/bets.html.twig', [
 	    'finished' => $finished,
 	    'today' => $today,
 	    'tomorrow' => $tomorrow,
 	    'rest' => $rest,
+	    'bonus' => $bonus,
+	    'bonusDate' => $bonusDate,
+	    'teams' => $teams
         ]);
     }
 
@@ -172,5 +193,50 @@ class UserController extends AbstractController
 	}
 
 	return $this->redirectToRoute('user_bet', ['betId' => $betId]);
+    }
+
+    /**
+     * @Route("/user/bonus-bet/{betId}", name="user_bonus_bet", methods={"POST"})
+     */
+    public function userBonusBet(int $betId, Request $request, HelperServices $helperServices): Response
+    {
+	$em = $this->getDoctrine()->getManager();
+	$user = $this->getUser();
+	$userId = $user->getId();
+
+	$champion = $helperServices->proper($request->get("champion"));
+	$scorer = $helperServices->proper($request->get("scorer"));
+
+	$bonusBet = $this->getDoctrine()
+	    ->getRepository(BetsBonus::class)
+	    ->getUserBonus($userId,$betId);
+
+	$bonusDate = $this->getParameter("bonus_date");
+	$bonusDate = new \Datetime($bonusDate);
+	$now = date('Y-m-d H:i:s');
+	
+	if($bonusBet && $bonusDate >= $now){
+	    if($champion){
+		$team = $this->getDoctrine()
+		    ->getRepository(Teams::class)
+		    ->findOneBy(['id' => $champion]);
+		
+		if($team){
+		    $bonusBet->setTeam($team);
+		}
+	    }
+	    if($scorer){
+		$bonusBet->setTopScorer($scorer);
+	    }
+	    
+	    $em->flush();
+	    $this->addFlash('success', 'Dane zapisane!');
+	    
+	    $now = date('Y-m-d H:i:s');
+	    $log = $now . ' User: ' . $userId . ' bet bonus: ' . $betId . ' : ' . $champion . ' - ' . $scorer;
+	    file_put_contents('../var/log/bonus_bets.txt', "$log\n", FILE_APPEND);
+	};
+	
+	return $this->redirectToRoute('user_bets');
     }
 }

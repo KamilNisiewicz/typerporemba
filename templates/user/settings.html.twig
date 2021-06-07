@@ -36,7 +36,7 @@
     </div>
     <h3 class="user-account-header">Zmień hasła:</h3>
     <div class="form">
-	<form method="post" action="{{ path('user_change_password') }}">
+	<form method="post" action="{{ path('user_change_password') }}" onSubmit="return options.checkFormPasswords()">
 	    <div class="form-line">
 		<label for="password1">Hasło</label>
 		<input type="password" value="" name="password1" id="password1" class="input-text" required />

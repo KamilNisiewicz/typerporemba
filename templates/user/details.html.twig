@@ -16,6 +16,38 @@
 	</span>
     </h2>
     <a href="{{ path('user_results') }}" class="button-link button-margin-bottom">Wróć do tabeli &laquo;</a>
+    <div class="bonus-details">
+	<div class="bonus-detail">
+	    <strong>Bonus punkty:</strong>
+	    <p>
+		{% if bonus.points > 0 %}
+		    {{ bonus.points }}
+		{% else %}
+		    0
+		{% endif %}
+	    </p>
+	</div>
+	<div class="bonus-detail">
+	    <strong>Mistrz Europy:</strong>
+	    <p>
+		{% if bonus.name %}
+		    {{ bonus.name }}
+		{% else %}
+		    <span class="color-error">---</span>
+		{% endif %}
+	    </p>
+	</div>
+	<div class="bonus-detail">
+	    <strong>Król strzelców:</strong>
+	    <p>
+		{% if bonus.topScorer %}
+		    {{ bonus.topScorer }}
+		{% else %}
+		    <span class="color-error">---</span>
+		{% endif %}
+	    </p>
+	</div>
+    </div>
     {% if details | length > 0 %}
 	<div class="schedule schedule-with-results">
 	    {{ include('_partials/schedule_header_finished.twig') }}
