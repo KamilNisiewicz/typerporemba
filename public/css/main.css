@@ -350,6 +350,14 @@ form label{
     transition: background 375ms ease;
 }
 
+.tile-admin{
+    background:#2753b3;
+}
+
+.tile.tile-admin:hover{
+    background:#163370;
+}
+
 .tile.tile-index{
     margin:3rem auto;
     width:10rem;
@@ -552,6 +560,18 @@ form .form-line-user select{
     font-size:1rem;
 }
 /* REGULATIONS END */
+/* ADMIN START */
+.active-users, .user-elem{
+    display:flex;
+}
+.active-users{
+    flex-direction:column;
+    font-size:1.25rem;
+}
+.user-elem > *{
+    margin:0.25rem 0.5rem;
+}
+/* ADMIN END */
 
 @media all and (max-width:1100px){
     .container{
@@ -635,6 +655,14 @@ form .form-line-user select{
     
     .mobile-info{
 	display:block;
+    }
+
+    .user-tiles.user-tiles-admin{
+	flex-wrap:wrap;
+    }
+
+    .user-tiles.user-tiles-admin .tile{
+	margin:1rem auto;
     }
     /* USER PAGE END */
 }
@@ -745,4 +773,9 @@ form .form-line-user select{
 	margin:0;
     }
     /* USER PAGE END */
+    /* ADMIN START */
+    .active-users{
+	font-size:1rem;
+    }
+    /* ADMIN END */
 }

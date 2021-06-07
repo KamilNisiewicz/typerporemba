@@ -7,7 +7,13 @@
     Twoje konto - <span class="color-gold">{{ app.user.login }}</span>
 </h2>
 {% if app.user.active %}
-    <div class="user-tiles">
+    <div class="user-tiles {% if is_granted('ROLE_ADMIN') %}user-tiles-admin{% endif %}">
+	{% if is_granted('ROLE_ADMIN') %}
+	<a href="{{ path('admin') }}" class="tile tile-admin">
+	    <i class="fas fa-user-shield"></i>
+	    <strong>Admin</strong>
+	</a>
+	{% endif %}
 	<a href="{{ path('user_bets') }}" class="tile">
 	    <i class="fas fa-check"></i>
 	    <strong>Twoje typy</strong>

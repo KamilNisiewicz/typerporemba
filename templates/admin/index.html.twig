@@ -2,5 +2,33 @@
 
 {% block meta_title %}Panel admin{% endblock %}
 
-{% block body %}
+{% block content %}
+<h2 class="site-title">
+    <span class="color-gold">{{ app.user.login }}</span> - ADMIN
+</h2>
+{% if inactiveUsers | length > 0 %}
+<h3 class="small-header color-gold">Niektywne konta</h3>
+<div class="active-users">
+    {% for user in inactiveUsers %}
+	<div class="user-elem">
+	    <p>{{ loop.index }}</p>
+	    <p>{{ user.login }}</p>
+	    <p>{{ user.email }}</p>
+	</div>
+    {% endfor %}
+</div>
+{% endif %}
+{% if activeUsers | length > 0 %}
+<h3 class="small-header color-gold">Aktywne konta</h3>
+<div class="active-users">
+    {% for user in activeUsers %}
+	<div class="user-elem">
+	    <p>{{ loop.index }}</p>
+	    <p>{{ user.login }}</p>
+	    <p>{{ user.email }}</p>
+	</div>
+    {% endfor %}
+</div>
+{% endif %}
+<div class="big-margin"></div>
 {% endblock %}
