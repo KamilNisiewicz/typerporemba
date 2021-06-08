@@ -590,8 +590,8 @@ form .form-line-user select{
 	width:70%;
     }
 
-    .menu.logged-menu a{
-	padding:0 0.25em;
+    .menu a{
+	padding:0 0.2em;
     }
 
     /* MAIN PAGE START*/
