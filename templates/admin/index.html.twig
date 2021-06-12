@@ -8,8 +8,29 @@
 		<span class="color-gold">{{ app.user.login }}</span>
 		- ADMIN
 	</h2>
+	{% if emptyMatches | length > 0 %}
+		<h3 class="small-header color-gold">Uzupełnij wyniki</h3>
+		<div class="empty-matches">
+			{% for match in emptyMatches %}
+				<div class="empty-matches-teams">
+					<div class="empty-matches-info">
+						<img src="/images/flags/{{ match.homeTeamFlag }}" alt="Flaga {{ match.homeTeamName }}"/>
+						<p>{{ match.homeTeamName }}</p>
+						<p>-</p>
+						<p>{{ match.awayTeamName }}</p>
+						<img src="/images/flags/{{ match.awayTeamFlag }}" alt="Flaga {{ match.awayTeamName }}"/>
+					</div>
+					<form action="{{ path('admin_match_action', { 'matchId': match.id }) }}" method="POST">
+						<input type="number" min="0" max="99" name="home_team" id="home_team" value="{{ match.homeTeamScore }}" required/>
+						<p>-</p>
+						<input type="number" min="0" max="99" name="away_team" id="away_team" value="{{ match.awayTeamScore }}" required/>
+						<button type="submit" class="button-submit">Zapisz &raquo;</button>
+					</form>
+				</div>
+			{% endfor %}
+		</div>
+	{% endif %}
 	{% if inactiveUsers | length > 0 %}
-		<h3 class="small-header color-gold">Niektywne konta</h3>
 		<div class="active-users">
 			{% for user in inactiveUsers %}
 				<div class="user-elem">

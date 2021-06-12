@@ -565,7 +565,7 @@ form .form-line-user select{
 }
 /* REGULATIONS END */
 /* ADMIN START */
-.active-users, .user-elem{
+.active-users, .user-elem, .empty-matches-teams, .empty-matches-teams > *{
     display:flex;
 }
 .active-users{
@@ -574,6 +574,31 @@ form .form-line-user select{
 }
 .user-elem > *{
     margin:0.25rem 0.5rem;
+}
+.empty-matches{
+    font-size:1.25rem;
+}
+.empty-matches-teams{
+    margin:1.25rem 0;
+}
+.empty-matches img{
+    max-height:1.5rem;
+}
+.empty-matches-info, .empty-matches-teams form{
+    align-items: center;
+}
+.empty-matches-info > *{
+    margin:0 0.5rem 0 0;
+}
+.empty-matches-teams form > *{
+    margin: 0 0.5rem;
+}
+.empty-matches-teams form input{
+    border-radius:5px;
+    font-size:1.5rem;
+    padding:0.25rem;
+    text-align:center;
+    width: 3rem;
 }
 /* ADMIN END */
 
@@ -774,12 +799,18 @@ form .form-line-user select{
     }
 
     .scorer-info{
-	margin:0;
+	    margin:0;
     }
     /* USER PAGE END */
     /* ADMIN START */
     .active-users{
-	font-size:1rem;
+	    font-size:1rem;
+    }
+    .empty-matches-teams{
+        flex-direction: column;
+    }
+    .empty-matches-teams > *{
+        margin:0.5rem 0;
     }
     /* ADMIN END */
 }
