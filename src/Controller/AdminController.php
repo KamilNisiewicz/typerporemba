@@ -46,15 +46,19 @@ class AdminController extends AbstractController
 		$homeTeam = $helperServices->proper($request->get("home_team"));
 		$awayTeam = $helperServices->proper($request->get("away_team"));
 
-        $match = $this->getDoctrine()
-            ->getRepository(Matches::class)
-            ->findOneBy(
-                ['id' => $matchId]
-            );
+		$match = $this->getDoctrine()
+			->getRepository(Matches::class)
+			->findOneBy(
+				['id' => $matchId]
+			);
         
-        if($match){
-            print_r($match);
-        }
-        exit();
-    }
+		if($match){
+			$match->setHomeTeamScore($homeTeam);
+			$match->setAwayTeamScore($awayTeam);
+			$em->flush();
+			$this->addFlash('success', 'Wynik zapisany!');
+		}
+
+		return $this->redirectToRoute('admin');
+	}
 }

@@ -8,6 +8,20 @@
 		<span class="color-gold">{{ app.user.login }}</span>
 		- ADMIN
 	</h2>
+	{% if app.session.flashbag.peek('success') %}
+		<div class="info success-info">
+			{% for message in app.flashes('success') %}
+				<p>{{ message|raw }}</p>
+			{% endfor %}
+		</div>
+	{% endif %}
+	{% if app.session.flashbag.peek('error') %}
+		<div class="info error-info">
+			{% for message in app.flashes('error') %}
+				<p>{{ message|raw }}</p>
+			{% endfor %}
+		</div>
+	{% endif %}
 	{% if emptyMatches | length > 0 %}
 		<h3 class="small-header color-gold">Uzupełnij wyniki</h3>
 		<div class="empty-matches">
