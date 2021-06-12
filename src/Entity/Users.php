@@ -162,28 +162,27 @@ class Users implements UserInterface
 
     public function getRoles(): array
     {
-	$roles = ['ROLE_USER'];
+        $roles = ['ROLE_USER'];
 
-	if($this->getId() == 1 || $this->getId() == 2){
-	    array_push($roles, 'ROLE_ADMIN');
-	}
+        if ($this->getId() == 1 || $this->getId() == 2) {
+            array_push($roles, 'ROLE_ADMIN');
+        }
 
-	return $roles;
+        return $roles;
     }
 
     public function getSalt(): string
     {
-	return $this->getEmail();
+        return $this->getEmail();
     }
 
     public function eraseCredentials()
     {
         return [];
     }
-    
+
     public function getUsername()
     {
-	return $this->getLogin();
+        return $this->getLogin();
     }
-
 }

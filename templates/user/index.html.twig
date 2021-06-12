@@ -1,33 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block meta_title %}Twoje konto{% endblock %}
+{% block meta_title %}Twoje konto
+{% endblock %}
 
 {% block content %}
-<h2 class="site-title">
-    Twoje konto - <span class="color-gold">{{ app.user.login }}</span>
-</h2>
-{% if app.user.active %}
-    <div class="user-tiles {% if is_granted('ROLE_ADMIN') %}user-tiles-admin{% endif %}">
-	{% if is_granted('ROLE_ADMIN') %}
-	<a href="{{ path('admin') }}" class="tile tile-admin">
-	    <i class="fas fa-user-shield"></i>
-	    <strong>Admin</strong>
-	</a>
+	<h2 class="site-title">
+		Twoje konto -
+		<span class="color-gold">{{ app.user.login }}</span>
+	</h2>
+	{% if app.user.active %}
+		<div class="user-tiles {% if is_granted('ROLE_ADMIN') %}user-tiles-admin{% endif %}">
+			{% if is_granted('ROLE_ADMIN') %}
+				<a href="{{ path('admin') }}" class="tile tile-admin">
+					<i class="fas fa-user-shield"></i>
+					<strong>Admin</strong>
+				</a>
+			{% endif %}
+			<a href="{{ path('user_bets') }}" class="tile">
+				<i class="fas fa-check"></i>
+				<strong>Twoje typy</strong>
+			</a>
+			<a href="{{ path('user_results') }}" class="tile">
+				<i class="fas fa-table"></i>
+				<strong>Tabela</strong>
+			</a>
+			<a href="{{ path('user_settings') }}" class="tile">
+				<i class="far fa-user"></i>
+				<strong>Twoje dane</strong>
+			</a>
+		</div>
+	{% else %}
+		{{ include('_partials/user_inactive_info.twig') }}
 	{% endif %}
-	<a href="{{ path('user_bets') }}" class="tile">
-	    <i class="fas fa-check"></i>
-	    <strong>Twoje typy</strong>
-	</a>
-	<a href="{{ path('user_results') }}" class="tile">
-	    <i class="fas fa-table"></i>
-	    <strong>Tabela</strong>
-	</a>
-	<a href="{{ path('user_settings') }}" class="tile">
-	    <i class="far fa-user"></i>
-	    <strong>Twoje dane</strong>
-	</a>
-    </div>
-{% else %}
-    {{ include('_partials/user_inactive_info.twig') }}
-{% endif %}
 {% endblock %}

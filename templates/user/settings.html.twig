@@ -1,57 +1,59 @@
 {% extends 'base.html.twig' %}
 
-{% block meta_title %}Twoje dane{% endblock %}
+{% block meta_title %}Twoje dane
+{% endblock %}
 
 {% block content %}
-<h2 class="site-title">
-    Twoje dane - <span class="color-gold">{{ app.user.login }}</span>
-</h2>
-{% if app.user.active %}
-    {% if app.session.flashbag.peek('success') %}
-	<div class="info success-info">
-	{% for message in app.flashes('success') %}
-	    <p>{{ message|raw }}</p>
-	{% endfor %}
-	</div>
-    {% endif %}
-    {% if app.session.flashbag.peek('error') %}
-	<div class="info error-info">
-	{% for message in app.flashes('error') %}
-	    <p>{{ message|raw }}</p>
-	{% endfor %}
-	</div>
-    {% endif %}
+	<h2 class="site-title">
+		Twoje dane -
+		<span class="color-gold">{{ app.user.login }}</span>
+	</h2>
+	{% if app.user.active %}
+		{% if app.session.flashbag.peek('success') %}
+			<div class="info success-info">
+				{% for message in app.flashes('success') %}
+					<p>{{ message|raw }}</p>
+				{% endfor %}
+			</div>
+		{% endif %}
+		{% if app.session.flashbag.peek('error') %}
+			<div class="info error-info">
+				{% for message in app.flashes('error') %}
+					<p>{{ message|raw }}</p>
+				{% endfor %}
+			</div>
+		{% endif %}
 
-    <h3 class="user-account-header">Zmień adres email:</h3>
-    <div class="form">
-	<form method="post" action="{{ path('user_change_email') }}">
-	    <div class="form-line">
-		<label for="email">Adres e-mail</label>
-		<input type="email" value="{{ app.user.email }}" name="email" id="email" class="input-text" required />
-	    </div>
-	    <button class="button-submit button-margin" type="submit">
-		Zmień adres e-mail
-	    </button>
-	</form>
-    </div>
-    <h3 class="user-account-header">Zmień hasła:</h3>
-    <div class="form">
-	<form method="post" action="{{ path('user_change_password') }}" onSubmit="return options.checkFormPasswords()">
-	    <div class="form-line">
-		<label for="password1">Hasło</label>
-		<input type="password" value="" name="password1" id="password1" class="input-text" required />
-	    </div>
-	    <div class="form-line">
-		<label for="password2">Powtórz hasło</label>
-		<input type="password" value="" name="password2" id="password2" class="input-text" required />
-	    </div>
-	    <button class="button-submit button-margin" type="submit">
-		Zmień hasło
-	    </button>
-	</form>
-    </div>
-    <div class="big-margin"></div>
-{% else %}
-    {{ include('_partials/user_inactive_info.twig') }}
-{% endif %}
+		<h3 class="user-account-header">Zmień adres email:</h3>
+		<div class="form">
+			<form method="post" action="{{ path('user_change_email') }}">
+				<div class="form-line">
+					<label for="email">Adres e-mail</label>
+					<input type="email" value="{{ app.user.email }}" name="email" id="email" class="input-text" required/>
+				</div>
+				<button class="button-submit button-margin" type="submit">
+					Zmień adres e-mail
+				</button>
+			</form>
+		</div>
+		<h3 class="user-account-header">Zmień hasła:</h3>
+		<div class="form">
+			<form method="post" action="{{ path('user_change_password') }}" onsubmit="return options.checkFormPasswords()">
+				<div class="form-line">
+					<label for="password1">Hasło</label>
+					<input type="password" value="" name="password1" id="password1" class="input-text" required/>
+				</div>
+				<div class="form-line">
+					<label for="password2">Powtórz hasło</label>
+					<input type="password" value="" name="password2" id="password2" class="input-text" required/>
+				</div>
+				<button class="button-submit button-margin" type="submit">
+					Zmień hasło
+				</button>
+			</form>
+		</div>
+		<div class="big-margin"></div>
+	{% else %}
+		{{ include('_partials/user_inactive_info.twig') }}
+	{% endif %}
 {% endblock %}

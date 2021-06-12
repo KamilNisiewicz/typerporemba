@@ -1,24 +1,25 @@
 <header>
-    <div class="container">
-	<div class="header">
-	    <h1>
-		<a href="/">
-		    TYPER POREMBA <i class="fas fa-futbol"></i>
-		</a>
-	    </h1>
-	    <div class="menu {% if app.user %}logged-menu{% endif %}">
-	        <a href="{{ path('regulations') }}" class="hover">Regulamin</a>
-		<a href="{{ path('schedule') }}" class="hover">Terminarz</a>
-		{% if not app.user %}
-		<a href="{{ path('user_register') }}" class="hover">Rejestracja</a>
-		{% endif %}
-		{% if app.user %}
-		    <a href="{{ path('user') }}" class="hover">Twoje konto</a>
-		    <a href="{{ path('user_logout') }}" class="hover">Wyloguj</a>
-		{% else %}
-		    <a href="{{ path('user_login') }}" class="hover">Logowanie</a>
-		{% endif %}
-	    </div>
+	<div class="container">
+		<div class="header">
+			<h1>
+				<a href="/">
+					TYPER POREMBA
+					<i class="fas fa-futbol"></i>
+				</a>
+			</h1>
+			<div class="menu {% if app.user %}logged-menu{% endif %}">
+				<a href="{{ path('regulations') }}" class="hover">Regulamin</a>
+				<a href="{{ path('schedule') }}" class="hover">Terminarz</a>
+				{% if not app.user %}
+					<a href="{{ path('user_register') }}" class="hover">Rejestracja</a>
+				{% endif %}
+				{% if app.user %}
+					<a href="{{ path('user') }}" class="hover">Twoje konto</a>
+					<a href="{{ path('user_logout') }}" class="hover">Wyloguj</a>
+				{% else %}
+					<a href="{{ path('user_login') }}" class="hover">Logowanie</a>
+				{% endif %}
+			</div>
+		</div>
 	</div>
-    </div>
 </header>

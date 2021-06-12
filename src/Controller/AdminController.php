@@ -14,17 +14,17 @@ class AdminController extends AbstractController
      */
     public function index(): Response
     {
-	$activeUsers = $this->getDoctrine()
-	    ->getRepository(Users::class)
-	    ->findBy(['active' => 1]);
+        $activeUsers = $this->getDoctrine()
+            ->getRepository(Users::class)
+            ->findBy(['active' => 1]);
 
-	$inactiveUsers = $this->getDoctrine()
-	    ->getRepository(Users::class)
-	    ->findBy(['active' => 0]);
+        $inactiveUsers = $this->getDoctrine()
+            ->getRepository(Users::class)
+            ->findBy(['active' => 0]);
 
         return $this->render('admin/index.html.twig', [
-	    'activeUsers' => $activeUsers,
-	    'inactiveUsers' => $inactiveUsers
+            'activeUsers' => $activeUsers,
+            'inactiveUsers' => $inactiveUsers
         ]);
     }
 }

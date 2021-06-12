@@ -14,15 +14,15 @@ class MainPageController extends AbstractController
      */
     public function index(): Response
     {
-	$activeUsers = $this->getDoctrine()
-	    ->getRepository(Users::class)
-	    ->findBy(['active' => 1]);
+        $activeUsers = $this->getDoctrine()
+            ->getRepository(Users::class)
+            ->findBy(['active' => 1]);
 
-	$premium = $this->getParameter("premium");
-	$prizePool = (count($activeUsers) * $premium);
+        $premium = $this->getParameter("premium");
+        $prizePool = (count($activeUsers) * $premium);
 
         return $this->render('main_page/index.html.twig', [
-	    'prizePool' => $prizePool
+            'prizePool' => $prizePool
         ]);
     }
 }

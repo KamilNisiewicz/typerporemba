@@ -1,73 +1,75 @@
 {% extends 'base.html.twig' %}
 
-{% block meta_title %}Szczegóły - {{ userInfo.login }}{% endblock %}
+{% block meta_title %}Szczegóły -
+	{{ userInfo.login }}
+{% endblock %}
 
 {% block content %}
-{% if app.user.active %}
-    <h2 class="site-title">
-	<span class="color-gold">{{ userInfo.login }}</span>
-	- suma punktów:
-	<span class="color-gold">
-	    {% if points.points > 0 %}
-		{{ points.points }}
-	    {% else %}
-		0
-	    {% endif %}
-	</span>
-    </h2>
-    <a href="{{ path('user_results') }}" class="button-link button-margin-bottom">Wróć do tabeli &laquo;</a>
-    <div class="bonus-details">
-	<div class="bonus-detail">
-	    <strong>Bonus punkty:</strong>
-	    <p>
-		{% if bonus.points > 0 %}
-		    {{ bonus.points }}
+	{% if app.user.active %}
+		<h2 class="site-title">
+			<span class="color-gold">{{ userInfo.login }}</span>
+			- suma punktów:
+			<span class="color-gold">
+				{% if points.points > 0 %}
+					{{ points.points }}
+				{% else %}
+					0
+				{% endif %}
+			</span>
+		</h2>
+		<a href="{{ path('user_results') }}" class="button-link button-margin-bottom">Wróć do tabeli &laquo;</a>
+		<div class="bonus-details">
+			<div class="bonus-detail">
+				<strong>Bonus punkty:</strong>
+				<p>
+					{% if bonus.points > 0 %}
+						{{ bonus.points }}
+					{% else %}
+						0
+					{% endif %}
+				</p>
+			</div>
+			<div class="bonus-detail">
+				<strong>Mistrz Europy:</strong>
+				<p>
+					{% if bonus.name %}
+						{{ bonus.name }}
+					{% else %}
+						<span class="color-error">---</span>
+					{% endif %}
+				</p>
+			</div>
+			<div class="bonus-detail">
+				<strong>Król strzelców:</strong>
+				<p>
+					{% if bonus.topScorer %}
+						{{ bonus.topScorer }}
+					{% else %}
+						<span class="color-error">---</span>
+					{% endif %}
+				</p>
+			</div>
+		</div>
+		{% if details | length > 0 %}
+			<div class="schedule schedule-with-results">
+				{{ include('_partials/schedule_header_finished.twig') }}
+				{% for match in details %}
+					<div class="schedule-match">
+						{{ include('_partials/schedule_info.twig') }}
+						{{ include('_partials/schedule_teams.twig') }}
+						{{ include('_partials/schedule_match_result.twig') }}
+						{{ include('_partials/schedule_user_result.twig') }}
+						{{ include('_partials/schedule_points.twig') }}
+					</div>
+				{% endfor %}
+			</div>
 		{% else %}
-		    0
+			<div class="user-info">
+				Brak wyników - użytkownik nie wytypował ani jednego meczu
+			</div>
 		{% endif %}
-	    </p>
-	</div>
-	<div class="bonus-detail">
-	    <strong>Mistrz Europy:</strong>
-	    <p>
-		{% if bonus.name %}
-		    {{ bonus.name }}
-		{% else %}
-		    <span class="color-error">---</span>
-		{% endif %}
-	    </p>
-	</div>
-	<div class="bonus-detail">
-	    <strong>Król strzelców:</strong>
-	    <p>
-		{% if bonus.topScorer %}
-		    {{ bonus.topScorer }}
-		{% else %}
-		    <span class="color-error">---</span>
-		{% endif %}
-	    </p>
-	</div>
-    </div>
-    {% if details | length > 0 %}
-	<div class="schedule schedule-with-results">
-	    {{ include('_partials/schedule_header_finished.twig') }}
-	    {% for match in details %}
-	    <div class="schedule-match">
-		{{ include('_partials/schedule_info.twig') }}
-		{{ include('_partials/schedule_teams.twig') }}
-		{{ include('_partials/schedule_match_result.twig') }}
-		{{ include('_partials/schedule_user_result.twig') }}
-		{{ include('_partials/schedule_points.twig') }}
-	    </div>
-	    {% endfor %}
-	</div>
-    {% else %}
-	<div class="user-info">
-	    Brak wyników - użytkownik nie wytypował ani jednego meczu
-	</div>
-    {% endif %}
-    <div class="big-margin"></div>
-{% else %}
-    {{ include('_partials/user_inactive_info.twig') }}
-{% endif %}
+		<div class="big-margin"></div>
+	{% else %}
+		{{ include('_partials/user_inactive_info.twig') }}
+	{% endif %}
 {% endblock %}

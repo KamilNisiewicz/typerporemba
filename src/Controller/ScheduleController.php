@@ -14,9 +14,9 @@ class ScheduleController extends AbstractController
      */
     public function index(): Response
     {
-	$schedule = $this->getDoctrine()
-	    ->getRepository(Matches::class)
-	    ->getSchedule();
+        $schedule = $this->getDoctrine()
+            ->getRepository(Matches::class)
+            ->getSchedule();
 
         return $this->render('schedule/index.html.twig', [
             'schedule' => $schedule

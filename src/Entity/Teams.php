@@ -63,6 +63,4 @@ class Teams
 
         return $this;
     }
-
-
 }

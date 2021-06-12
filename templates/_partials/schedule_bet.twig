@@ -1,5 +1,5 @@
 <div class="schedule-bet">
-    {% if match.date > date() %}
-	<a href="{{ path('user_bet', { 'betId': match.betId }) }}" class="button-link">Zmień typ &raquo;</a>
-    {% endif %}
+	{% if match.date > date() %}
+		<a href="{{ path('user_bet', { 'betId': match.betId }) }}" class="button-link">Zmień typ &raquo;</a>
+	{% endif %}
 </div>

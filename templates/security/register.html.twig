@@ -1,52 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block meta_title %}Rejestracja{% endblock %}
-{% block meta_desc %}Rejestracja w serwisie typerporemba.pl - utwórz konto już teraz!{% endblock %}
+{% block meta_title %}Rejestracja
+{% endblock %}
+{% block meta_desc %}Rejestracja w serwisie typerporemba.pl - utwórz konto już teraz!
+{% endblock %}
 
 {% block content %}
-<h2 class="site-title">
-    Rejestracja konta
-</h2>
-{% if app.session.flashbag.peek('success') %}
-    <div class="info success-info">
-    {% for message in app.flashes('success') %}
-	<p>{{ message|raw }}</p>
-    {% endfor %}
-    </div>
-{% endif %}
-{% if app.session.flashbag.peek('error') %}
-    <div class="info error-info">
-    {% for message in app.flashes('error') %}
-	<p>{{ message|raw }}</p>
-    {% endfor %}
-    </div>
-{% endif %}
-<div class="form">
-    <form method="post" onSubmit="return options.checkFormPasswords()">
-	<div class="form-line">
-	    <label for="inputLogin">Login <span class="login-info">(tylko litery i cyfry)</span></label>
-	    <input type="text" value="" name="login" id="inputLogin" class="input-text" pattern="[A-Za-z0-9]+" required />
+	<h2 class="site-title">
+		Rejestracja konta
+	</h2>
+	{% if app.session.flashbag.peek('success') %}
+		<div class="info success-info">
+			{% for message in app.flashes('success') %}
+				<p>{{ message|raw }}</p>
+			{% endfor %}
+		</div>
+	{% endif %}
+	{% if app.session.flashbag.peek('error') %}
+		<div class="info error-info">
+			{% for message in app.flashes('error') %}
+				<p>{{ message|raw }}</p>
+			{% endfor %}
+		</div>
+	{% endif %}
+	<div class="form">
+		<form method="post" onsubmit="return options.checkFormPasswords()">
+			<div class="form-line">
+				<label for="inputLogin">Login
+					<span class="login-info">(tylko litery i cyfry)</span>
+				</label>
+				<input type="text" value="" name="login" id="inputLogin" class="input-text" pattern="[A-Za-z0-9]+" required/>
+			</div>
+			<div class="form-line">
+				<label for="inputEmail">Email</label>
+				<input type="email" value="" name="email" id="inputEmail" class="input-text" required/>
+			</div>
+			<div class="form-line">
+				<label for="password1">Hasło</label>
+				<input type="password" name="password1" id="password1" class="input-text" required/>
+			</div>
+			<div class="form-line">
+				<label for="password2">Powtórz hasło</label>
+				<input type="password" name="password2" id="password2" class="input-text" required/>
+			</div>
+			<div class="checkbox-line">
+				<input type="checkbox" id="regulations" name="regulations" value="newsletter" required/>
+				<label for="regulations">Akceptuję
+					<a href="{{ path('regulations') }}" target="_blank">Regulamin &raquo;</a>
+				</label>
+			</div>
+			<button class="button-submit button-margin" type="submit">
+				Zarejestruj
+			</button>
+		</form>
 	</div>
-	<div class="form-line">
-	    <label for="inputEmail">Email</label>
-	    <input type="email" value="" name="email" id="inputEmail" class="input-text" required />
-	</div>
-	<div class="form-line">
-	    <label for="password1">Hasło</label>
-	    <input type="password" name="password1" id="password1" class="input-text" required />
-	</div>
-	<div class="form-line">
-	    <label for="password2">Powtórz hasło</label>
-	    <input type="password" name="password2" id="password2" class="input-text" required />
-	</div>
-	<div class="checkbox-line">
-	    <input type="checkbox" id="regulations" name="regulations" value="newsletter" required />
-	    <label for="regulations">Akceptuję <a href="{{ path('regulations') }}" target="_blank">Regulamin &raquo;</a></label>
-	</div>
-	<button class="button-submit button-margin" type="submit">
-	    Zarejestruj
-	</button>
-    </form>
-</div>
-<div class="big-margin"></div>
+	<div class="big-margin"></div>
 {% endblock %}

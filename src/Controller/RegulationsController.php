@@ -13,10 +13,10 @@ class RegulationsController extends AbstractController
      */
     public function index(): Response
     {
-	$premium = $this->getParameter("premium");
+        $premium = $this->getParameter("premium");
 
         return $this->render('regulations/index.html.twig', [
-	    'premium' => $premium
+            'premium' => $premium
         ]);
     }
 }

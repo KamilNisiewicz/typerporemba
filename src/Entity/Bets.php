@@ -126,6 +126,4 @@ class Bets
 
         return $this;
     }
-
-
 }

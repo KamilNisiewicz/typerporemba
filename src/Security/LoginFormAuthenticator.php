@@ -35,62 +35,62 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
 
     public function __construct(EntityManagerInterface $entityManager, CsrfTokenManagerInterface $csrfTokenManager, RouterInterface $router, HelperServices $helperServices)
     {
-	$this->entityManager = $entityManager;
-	$this->csrfTokenManager = $csrfTokenManager;
-	$this->router = $router;
-	$this->helperServices = $helperServices;
+        $this->entityManager = $entityManager;
+        $this->csrfTokenManager = $csrfTokenManager;
+        $this->router = $router;
+        $this->helperServices = $helperServices;
     }
 
     public function supports(Request $request): bool
     {
-	return self::LOGIN_ROUTE === $request->attributes->get('_route') && $request->isMethod('POST');
+        return self::LOGIN_ROUTE === $request->attributes->get('_route') && $request->isMethod('POST');
     }
 
     public function getCredentials(Request $request)
     {
-	$credentials = [
-	    'login' => $request->request->get('login'),
-	    'password' => $request->request->get('password'),
-	    'csrf_token' => $request->request->get('_csrf_token'),
-	];
+        $credentials = [
+            'login' => $request->request->get('login'),
+            'password' => $request->request->get('password'),
+            'csrf_token' => $request->request->get('_csrf_token'),
+        ];
 
-	$request->getSession()->set(
-	    Security::LAST_USERNAME,
-	    $credentials['login']
-	);
+        $request->getSession()->set(
+            Security::LAST_USERNAME,
+            $credentials['login']
+        );
 
-	return $credentials;
+        return $credentials;
     }
-    
+
     public function getUser($credentials, UserProviderInterface $userProvider): ?Users
     {
-	$token = new CsrfToken('authenticate', $credentials['csrf_token']);
-	if (!$this->csrfTokenManager->isTokenValid($token)) {
-	    throw new InvalidCsrfTokenException();
+        $token = new CsrfToken('authenticate', $credentials['csrf_token']);
+        if (!$this->csrfTokenManager->isTokenValid($token)) {
+            throw new InvalidCsrfTokenException();
         }
 
-	$user = $this->entityManager
-	    ->getRepository(Users::class)
-	    ->findOneBy(['login' => $credentials['login']]);
+        $user = $this->entityManager
+            ->getRepository(Users::class)
+            ->findOneBy(['login' => $credentials['login']]);
 
-	if (!$user) {
-	    throw new CustomUserMessageAuthenticationException('Nie znaleziono użytkownika o podanym loginie!');
-	}
-	
-	$this->user = $user;
+        if (!$user) {
+            throw new CustomUserMessageAuthenticationException('Nie znaleziono użytkownika o podanym loginie!');
+        }
 
-	return $user;
+        $this->user = $user;
+
+        return $user;
     }
 
     public function checkCredentials($credentials, UserInterface $user): bool
     {
-	$isPasswordValid = $this->helperServices->checkIsPasswordValid($credentials['login'], $credentials['password'], $user->getPassword());
+        $isPasswordValid = $this->helperServices->checkIsPasswordValid($credentials['login'], $credentials['password'], $user->getPassword());
 
-	if($isPasswordValid){
-	    return true;
-	}else{
-	    throw new CustomUserMessageAuthenticationException('Niestety, podałeś niewłaściwy login lub hasło!');
-	}
+        if ($isPasswordValid) {
+            return true;
+        } else {
+            throw new CustomUserMessageAuthenticationException('Niestety, podałeś niewłaściwy login lub hasło!');
+        }
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
@@ -99,29 +99,29 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-	$this->user->setLastLogin(new \DateTime());
-	$this->entityManager->flush();
-            
-	$url = $this->router->generate('user');
+        $this->user->setLastLogin(new \DateTime());
+        $this->entityManager->flush();
+
+        $url = $this->router->generate('user');
         return new RedirectResponse($url);
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-	if ($request->hasSession()) {
-	    $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
+        if ($request->hasSession()) {
+            $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
         }
 
-	$url = $this->getLoginUrl();
+        $url = $this->getLoginUrl();
 
-	return new RedirectResponse($url);
+        return new RedirectResponse($url);
     }
 
     public function start(Request $request, AuthenticationException $authException = null)
     {
-	$url = $this->getLoginUrl();
+        $url = $this->getLoginUrl();
 
-	return new RedirectResponse($url);
+        return new RedirectResponse($url);
     }
 
     public function supportsRememberMe()
@@ -131,6 +131,6 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
 
     protected function getLoginUrl(): string
     {
-	return $this->router->generate('user_login');
+        return $this->router->generate('user_login');
     }
 }

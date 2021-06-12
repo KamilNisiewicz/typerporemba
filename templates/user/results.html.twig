@@ -1,37 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block meta_title %}Tabela{% endblock %}
+{% block meta_title %}Tabela
+{% endblock %}
 
 {% block content %}
-<h2 class="site-title">Tabela</h2>
-{% if app.user.active %}
-    {% if results | length > 0 %}
-    <div class="results">
-	<div class="result">
-	    <p class="result-index"></p>
-	    <p class="result-login">Login</p>
-	    <p class="result-points">Punkty</p>
-	    <p class="result-details"></p>
-	</div>
-	{% for result in results %}
-	<div class="result {{ result_class(loop.index) }}">
-	    <p class="result-index">{{ loop.index }}</p>
-	    <p class="result-login">{{ result.login }}</p>
-	    <p class="result-points">{{ result.points }}</p>
-	    <p class="result-details">
-		<a href="{{ path('user_results_details', { 'userId': result.id }) }}" class="button-link">
-		    Zobacz szczegóły &raquo;
-		</a>
-	    </p>
-	</div>
-	{% endfor %}
-    </div>
-    {% else %}
-	<div class="user-info">
-	    Brak wyników - nie rozegrano jeszcze żadnego meczu
-	</div>
-    {% endif %}
-{% else %}
-    {{ include('_partials/user_inactive_info.twig') }}
-{% endif %}
+	<h2 class="site-title">Tabela</h2>
+	{% if app.user.active %}
+		{% if results | length > 0 %}
+			<div class="results">
+				<div class="result">
+					<p class="result-index"></p>
+					<p class="result-login">Login</p>
+					<p class="result-points">Punkty</p>
+					<p class="result-details"></p>
+				</div>
+				{% set place = 1 %}
+				{% set current_points = results|first.points %}
+				{% for result in results %}
+					{% if result.points != current_points %}
+						{% set current_points = result.points %}
+						{% set place = place + 1 %}
+					{% endif %}
+					<div class="result {{ result_class(place) }} {% if result.login == app.user.login %}result-current{% endif %}">
+						<p class="result-index">{{ place }}</p>
+						<p class="result-login">{{ result.login }}</p>
+						<p class="result-points">{{ result.points }}</p>
+						<p class="result-details">
+							<a href="{{ path('user_results_details', { 'userId': result.id }) }}" class="button-link">
+								Zobacz szczegóły &raquo;
+							</a>
+						</p>
+					</div>
+				{% endfor %}
+			</div>
+		{% else %}
+			<div class="user-info">
+				Brak wyników - nie rozegrano jeszcze żadnego meczu
+			</div>
+		{% endif %}
+	{% else %}
+		{{ include('_partials/user_inactive_info.twig') }}
+	{% endif %}
+	<div class="big-margin"></div>
 {% endblock %}

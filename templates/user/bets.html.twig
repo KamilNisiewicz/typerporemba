@@ -1,120 +1,123 @@
 {% extends 'base.html.twig' %}
 
-{% block meta_title %}Twoje typy{% endblock %}
+{% block meta_title %}Twoje typy
+{% endblock %}
 
 {% block content %}
-{% if app.user.active %}
-<h2 class="site-title">Twoje typy - <span class="color-gold">{{ app.user.login }}</span></h2>
-<h3 class="small-header color-gold">Bonusy</h3>
-{% if app.session.flashbag.peek('success') %}
-<div class="info success-info">
-    {% for message in app.flashes('success') %}
-	<p>{{ message|raw }}</p>
-    {% endfor %}
-</div>
-{% endif %}
-{% if app.session.flashbag.peek('error') %}
-    <div class="info error-info">
-    {% for message in app.flashes('error') %}
-	<p>{{ message|raw }}</p>
-    {% endfor %}
-    </div>
-{% endif %}
-<form method="post" action="{{ path('user_bonus_bet', { 'betId': bonus.bonusId }) }}" class="user-bonus">
-    <div class="form-line-user">
-	<label for="champion">Mistrz Europy</label>
-	<select name="champion" id="champion">
-	{% for team in teams %}
-	    <option value="{{ team.id }}" {% if team.id == bonus.id %}selected="selected"{% endif %}>{{ team.name }}</option>
-	{% endfor %}
-	</select>
-    </div>
-    <div class="form-line-user">
-	<label for="scorer">Król strzelców</label>
-	<input type="text" value="{{ bonus.topScorer }}" name="scorer" id="scorer" class="input-text" />
-	<p class="scorer-info">Prośba o wpisanie pełnego imienia i nazwiska zawodnika</p>
-    </div>
-    {% if bonusDate > date() %}
-    <button type="submit" class="button-submit button">
-	Zapisz &raquo;
-    </button>
-    {% endif %}
-</form>
-<h3 class="small-header color-gold">Dzisiejsze mecze</h3>
-{% if today | length > 0 %}
-    <div class="schedule schedule-with-results">
-	{{ include('_partials/schedule_header.twig') }}
-	{% for match in today %}
-	    <div class="schedule-match">
-		{{ include('_partials/schedule_info.twig') }}
-		{{ include('_partials/schedule_teams.twig') }}
-		{{ include('_partials/schedule_user_result.twig') }}
-		{{ include('_partials/schedule_bet.twig') }}
-	    </div>
-	{% endfor %}
-    </div>
-{% else %}
-    <div class="user-info">
-	Brak meczów
-    </div>
-{% endif %}
-<h3 class="small-header color-gold">Jutrzejsze mecze</h3>
-{% if tomorrow | length > 0 %}
-    <div class="schedule schedule-with-results">
-	{{ include('_partials/schedule_header.twig') }}
-	{% for match in tomorrow %}
-	    <div class="schedule-match">
-		{{ include('_partials/schedule_info.twig') }}
-		{{ include('_partials/schedule_teams.twig') }}
-		{{ include('_partials/schedule_user_result.twig') }}
-		{{ include('_partials/schedule_bet.twig') }}
-	    </div>
-	{% endfor %}
-    </div>
-{% else %}
-    <div class="user-info">
-	Brak meczów
-    </div>
-{% endif %}
-<h3 class="small-header color-gold">Pozostałe mecze</h3>
-{% if rest | length > 0 %}
-    <div class="schedule schedule-with-results">
-	{{ include('_partials/schedule_header.twig') }}
-	{% for match in rest %}
-	    <div class="schedule-match">
-		{{ include('_partials/schedule_info.twig') }}
-		{{ include('_partials/schedule_teams.twig') }}
-		{{ include('_partials/schedule_user_result.twig') }}
-		{{ include('_partials/schedule_bet.twig') }}
-	    </div>
-	{% endfor %}
-    </div>
-{% else %}
-    <div class="user-info">
-	Brak meczów
-    </div>
-{% endif %}
-<h3 class="small-header color-gold">Zakończone mecze</h3>
-{% if finished | length > 0 %}
-    <div class="schedule schedule-with-results">
-	{{ include('_partials/schedule_header_finished.twig') }}
-	{% for match in finished %}
-	    <div class="schedule-match">
-		{{ include('_partials/schedule_info.twig') }}
-		{{ include('_partials/schedule_teams.twig') }}
-		{{ include('_partials/schedule_match_result.twig') }}
-		{{ include('_partials/schedule_user_result.twig') }}
-		{{ include('_partials/schedule_points.twig') }}
-	    </div>
-	{% endfor %}
-    </div>
-{% else %}
-    <div class="user-info">
-	Brak meczów
-    </div>
-{% endif %}
-<div class="big-margin"></div>
-{% else %}
-    {{ include('_partials/user_inactive_info.twig') }}
-{% endif %}
+	{% if app.user.active %}
+		<h2 class="site-title">Twoje typy -
+			<span class="color-gold">{{ app.user.login }}</span>
+		</h2>
+		<h3 class="small-header color-gold">Bonusy</h3>
+		{% if app.session.flashbag.peek('success') %}
+			<div class="info success-info">
+				{% for message in app.flashes('success') %}
+					<p>{{ message|raw }}</p>
+				{% endfor %}
+			</div>
+		{% endif %}
+		{% if app.session.flashbag.peek('error') %}
+			<div class="info error-info">
+				{% for message in app.flashes('error') %}
+					<p>{{ message|raw }}</p>
+				{% endfor %}
+			</div>
+		{% endif %}
+		<form method="post" action="{{ path('user_bonus_bet', { 'betId': bonus.bonusId }) }}" class="user-bonus">
+			<div class="form-line-user">
+				<label for="champion">Mistrz Europy</label>
+				<select name="champion" id="champion">
+					{% for team in teams %}
+						<option value="{{ team.id }}" {% if team.id == bonus.id %} selected="selected" {% endif %}>{{ team.name }}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="form-line-user">
+				<label for="scorer">Król strzelców</label>
+				<input type="text" value="{{ bonus.topScorer }}" name="scorer" id="scorer" class="input-text"/>
+				<p class="scorer-info">Prośba o wpisanie pełnego imienia i nazwiska zawodnika</p>
+			</div>
+			{% if bonusDate > date() %}
+				<button type="submit" class="button-submit button">
+					Zapisz &raquo;
+				</button>
+			{% endif %}
+		</form>
+		<h3 class="small-header color-gold">Dzisiejsze mecze</h3>
+		{% if today | length > 0 %}
+			<div class="schedule schedule-with-results">
+				{{ include('_partials/schedule_header.twig') }}
+				{% for match in today %}
+					<div class="schedule-match">
+						{{ include('_partials/schedule_info.twig') }}
+						{{ include('_partials/schedule_teams.twig') }}
+						{{ include('_partials/schedule_user_result.twig') }}
+						{{ include('_partials/schedule_bet.twig') }}
+					</div>
+				{% endfor %}
+			</div>
+		{% else %}
+			<div class="user-info">
+				Brak meczów
+			</div>
+		{% endif %}
+		<h3 class="small-header color-gold">Jutrzejsze mecze</h3>
+		{% if tomorrow | length > 0 %}
+			<div class="schedule schedule-with-results">
+				{{ include('_partials/schedule_header.twig') }}
+				{% for match in tomorrow %}
+					<div class="schedule-match">
+						{{ include('_partials/schedule_info.twig') }}
+						{{ include('_partials/schedule_teams.twig') }}
+						{{ include('_partials/schedule_user_result.twig') }}
+						{{ include('_partials/schedule_bet.twig') }}
+					</div>
+				{% endfor %}
+			</div>
+		{% else %}
+			<div class="user-info">
+				Brak meczów
+			</div>
+		{% endif %}
+		<h3 class="small-header color-gold">Pozostałe mecze</h3>
+		{% if rest | length > 0 %}
+			<div class="schedule schedule-with-results">
+				{{ include('_partials/schedule_header.twig') }}
+				{% for match in rest %}
+					<div class="schedule-match">
+						{{ include('_partials/schedule_info.twig') }}
+						{{ include('_partials/schedule_teams.twig') }}
+						{{ include('_partials/schedule_user_result.twig') }}
+						{{ include('_partials/schedule_bet.twig') }}
+					</div>
+				{% endfor %}
+			</div>
+		{% else %}
+			<div class="user-info">
+				Brak meczów
+			</div>
+		{% endif %}
+		<h3 class="small-header color-gold">Zakończone mecze</h3>
+		{% if finished | length > 0 %}
+			<div class="schedule schedule-with-results">
+				{{ include('_partials/schedule_header_finished.twig') }}
+				{% for match in finished %}
+					<div class="schedule-match">
+						{{ include('_partials/schedule_info.twig') }}
+						{{ include('_partials/schedule_teams.twig') }}
+						{{ include('_partials/schedule_match_result.twig') }}
+						{{ include('_partials/schedule_user_result.twig') }}
+						{{ include('_partials/schedule_points.twig') }}
+					</div>
+				{% endfor %}
+			</div>
+		{% else %}
+			<div class="user-info">
+				Brak meczów
+			</div>
+		{% endif %}
+		<div class="big-margin"></div>
+	{% else %}
+		{{ include('_partials/user_inactive_info.twig') }}
+	{% endif %}
 {% endblock %}

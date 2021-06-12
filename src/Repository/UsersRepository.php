@@ -14,38 +14,38 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class UsersRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Users::class);
-    }
-    
-    public function checkUsersExists(string $email, string $login): bool
-    {
-	$users = $this->createQueryBuilder('u')
-	    ->select('u.login')
-	    ->where('u.email = :email')
-	    ->orWhere('u.login = :login')
-	    ->setParameter('email', $email)
-	    ->setParameter('login', $login)
-	    ->getQuery()
-	    ->getArrayResult();
-	
-	if($users){
-	    return true;
-	}else{
-	    return false;
+	public function __construct(ManagerRegistry $registry)
+	{
+		parent::__construct($registry, Users::class);
 	}
-    }
 
-    public function searchUser(string $search): Users
-    {
-	$user = $this->createQueryBuilder('u')
-	    ->where('u.email = :search')
-	    ->orWhere('u.login = :search')
-	    ->setParameter('search', $search)
-	    ->getQuery()
-	    ->getSingleResult();
-	
-	return $user;
-    }
+	public function checkUsersExists(string $email, string $login): bool
+	{
+		$users = $this->createQueryBuilder('u')
+			->select('u.login')
+			->where('u.email = :email')
+			->orWhere('u.login = :login')
+			->setParameter('email', $email)
+			->setParameter('login', $login)
+			->getQuery()
+			->getArrayResult();
+
+		if ($users) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function searchUser(string $search): Users
+	{
+		$user = $this->createQueryBuilder('u')
+			->where('u.email = :search')
+			->orWhere('u.login = :search')
+			->setParameter('search', $search)
+			->getQuery()
+			->getSingleResult();
+
+		return $user;
+	}
 }

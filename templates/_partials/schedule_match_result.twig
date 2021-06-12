@@ -1,10 +1,10 @@
 <div class="schedule-result">
-    <p class="mobile-info">Wynik:</p>
-    {% if match.homeTeamScore is not null and match.awayTeamScore is not null %}
-	<p>{{ match.homeTeamScore }}</p>
-	<p>-</p>
-	<p>{{ match.awayTeamScore }}</p>
-    {% else %}
-	<p>---</p>
-    {% endif %}
+	<p class="mobile-info">Wynik:</p>
+	{% if match.homeTeamScore is not null and match.awayTeamScore is not null %}
+		<p>{{ match.homeTeamScore }}</p>
+		<p>-</p>
+		<p>{{ match.awayTeamScore }}</p>
+	{% else %}
+		<p>---</p>
+	{% endif %}
 </div>

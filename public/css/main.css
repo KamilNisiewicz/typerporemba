@@ -477,6 +477,10 @@ form label{
     min-width:5rem;
 }
 
+.result-current{
+    font-weight:700;
+}
+
 .user-bet{
     align-items:center;
     display:flex;

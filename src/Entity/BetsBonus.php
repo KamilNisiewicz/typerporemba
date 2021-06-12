@@ -107,6 +107,4 @@ class BetsBonus
 
         return $this;
     }
-
-
 }

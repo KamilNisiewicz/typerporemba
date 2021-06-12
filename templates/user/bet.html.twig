@@ -1,44 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block meta_title %}Typuj mecz{% endblock %}
+{% block meta_title %}Typuj mecz
+{% endblock %}
 
 {% block content %}
-<h2 class="site-title">Typuj mecz - <span class="color-gold">{{ app.user.login }}</span></h1>
-{% if app.session.flashbag.peek('success') %}
-<div class="info success-info">
-    {% for message in app.flashes('success') %}
-	<p>{{ message|raw }}</p>
-    {% endfor %}
-</div>
-{% endif %}
-{% if app.session.flashbag.peek('error') %}
-    <div class="info error-info">
-    {% for message in app.flashes('error') %}
-	<p>{{ message|raw }}</p>
-    {% endfor %}
-    </div>
-{% endif %}
-<a href="{{ path('user_bets') }}" class="button-link">Wróc do typów &laquo;</a>
-<form method="post" action="{{ path('user_bet_action', { 'betId': bet[0].betId }) }}" class="user-bet">
-    <div class="bet-info">
-	<p>{{ bet[0].phase }}</p>
-	<p>{{ bet[0].date | date('d-m-Y H:i:s') }}</p>
-    </div>
-    <div class="bet-teams">
-	<img src="/images/flags/{{ bet[0].homeTeamFlag }}" />
-	<p>{{ bet[0].homeTeamName }}</p>
-	<p>-</p>
-	<p>{{ bet[0].awayTeamName }}</p>
-	<img src="/images/flags/{{ bet[0].awayTeamFlag }}" />
-    </div>
-    <div class="bet-inputs">
-	<input type="number" min="0" max="99" name="home_team" id="home_team" value="{{ bet[0].userHomeTeamScore }}" required />
-	<p>-</p>
-	<input type="number" min="0" max="99" name="away_team" id="away_team" value="{{ bet[0].userAwayTeamScore }}" required />
-    </div>
-    {% if bet[0].date > date() %}
-	<button type="submit" class="button-submit button-margin">Zapisz &raquo;</button>
-    {% endif %}
-</form>
-<div class="big-margin"></div>
+	<h2 class="site-title">Typuj mecz -
+		<span class="color-gold">{{ app.user.login }}</span>
+	</h1>
+	{% if app.session.flashbag.peek('success') %}
+		<div class="info success-info">
+			{% for message in app.flashes('success') %}
+				<p>{{ message|raw }}</p>
+			{% endfor %}
+		</div>
+	{% endif %}
+	{% if app.session.flashbag.peek('error') %}
+		<div class="info error-info">
+			{% for message in app.flashes('error') %}
+				<p>{{ message|raw }}</p>
+			{% endfor %}
+		</div>
+	{% endif %}
+	<a href="{{ path('user_bets') }}" class="button-link">Wróc do typów &laquo;</a>
+	<form method="post" action="{{ path('user_bet_action', { 'betId': bet[0].betId }) }}" class="user-bet">
+		<div class="bet-info">
+			<p>{{ bet[0].phase }}</p>
+			<p>{{ bet[0].date | date('d-m-Y H:i:s') }}</p>
+		</div>
+		<div class="bet-teams">
+			<img src="/images/flags/{{ bet[0].homeTeamFlag }}"/>
+			<p>{{ bet[0].homeTeamName }}</p>
+			<p>-</p>
+			<p>{{ bet[0].awayTeamName }}</p>
+			<img src="/images/flags/{{ bet[0].awayTeamFlag }}"/>
+		</div>
+		<div class="bet-inputs">
+			<input type="number" min="0" max="99" name="home_team" id="home_team" value="{{ bet[0].userHomeTeamScore }}" required/>
+			<p>-</p>
+			<input type="number" min="0" max="99" name="away_team" id="away_team" value="{{ bet[0].userAwayTeamScore }}" required/>
+		</div>
+		{% if bet[0].date > date() %}
+			<button type="submit" class="button-submit button-margin">Zapisz &raquo;</button>
+		{% endif %}
+	</form>
+	<div class="big-margin"></div>
 {% endblock %}
