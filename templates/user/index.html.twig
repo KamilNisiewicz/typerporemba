@@ -10,9 +10,8 @@
 	</h2>
 	{% if app.user.active %}
 		<div class="user-info-special">
-			Aby uniknąć niesprawiedliwego podziału nagród - wprowadziliśmy zmiany w regulaminie odnośnie podziału nagród w przypadku zajęcia miejsc ex-aequo.<br/>
-			Prosimy o wyrozumiałość, a w przypadku potrzeby konkretniejszych wyjaśnień prosimy o kontakt z administratorami.<br/>
-			<a href="{{ path('regulations') }}#changes" class="hover">Zobacz zmiany &raquo;</a>
+			Uwaga! Przypominamy, że w fazie pucharowej typujemy wynik po 90 minutach gry! Dogrywka nie będzie liczona!<br/>
+			P.S. Wprowadzamy mały bonus, mecze w fazie pucharowej z udziałem Polaków będą punktowane <strong>potrójnie</strong> ;) ;) ;)
 		</div>
 		<div class="user-tiles {% if is_granted('ROLE_ADMIN') %}user-tiles-admin{% endif %}">
 			{% if is_granted('ROLE_ADMIN') %}
