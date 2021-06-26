@@ -33,7 +33,8 @@ class BetsRepository extends ServiceEntityRepository
 		  group by 2,3
 		  UNION ALL
 		  select sum(bb.points) as points, u.id, u.login FROM bets_bonus bb 
-		  left join users u on u.id = bb.user_id 
+		  left join users u on u.id = bb.user_id
+		  group by 2,3
 		) as results
 		group by 2,3
 		order by points desc
