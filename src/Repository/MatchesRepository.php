@@ -20,9 +20,14 @@ class MatchesRepository extends ServiceEntityRepository
 		parent::__construct($registry, Matches::class);
 	}
 
-	public function getSchedule(): array
+	public function getSchedule(string $stage): array
 	{
 		$schedule = [];
+		$where = "m.id < 38";
+
+		if($stage == 'knockout'){
+			$where = "m.id > 37";
+		}
 
 		$schedule = $this->createQueryBuilder('m')
 			->select(
@@ -35,6 +40,7 @@ class MatchesRepository extends ServiceEntityRepository
 			)
 			->leftJoin(Teams::class, 't1', 'WITH', 't1.id = m.homeTeam')
 			->leftJoin(Teams::class, 't2', 'WITH', 't2.id = m.awayTeam')
+			->where($where)
 			->orderBy('m.date', 'ASC')
 			->getQuery()
 			->getArrayResult();

@@ -28,184 +28,104 @@
 	</div>
 	<h3 class="small-header color-gold">Faza Pucharowa</h3>
 	<div class="schedule">
+		{% for match in scheduleKnockout %}
+			<div class="schedule-match">
+				<div class="schedule-info">
+					<p>{{ loop.index }}</p>
+					<p>{{ match.phase }}</p>
+					<p>{{ match.date | date('d-m-Y H:i:s') }}</p>
+				</div>
+				<div class="schedule-teams">
+					<img src="/images/flags/{{ match.homeTeamFlag }}" alt="Flaga {{ match.homeTeamName }}"/>
+					<p>{{ match.homeTeamName }}</p>
+					<p>-</p>
+					<p>{{ match.awayTeamName }}</p>
+					<img src="/images/flags/{{ match.awayTeamFlag }}" alt="Flaga {{ match.awayTeamName }}"/>
+				</div>
+			</div>
+		{% endfor %}
 		<div class="schedule-match">
 			<div class="schedule-info">
-				<p>37</p>
-				<p>1/8 finału</p>
-				<p>26-06-2021 18:00:00</p>
-			</div>
-			<div class="schedule-teams">
-				<p>2A</p>
-				<p>-</p>
-				<p>2B</p>
-			</div>
-		</div>
-		<div class="schedule-match">
-			<div class="schedule-info">
-				<p>38</p>
-				<p>1/8 finału</p>
-				<p>26-06-2021 21:00:00</p>
-			</div>
-			<div class="schedule-teams">
-				<p>1A</p>
-				<p>-</p>
-				<p>2C</p>
-			</div>
-		</div>
-		<div class="schedule-match">
-			<div class="schedule-info">
-				<p>39</p>
-				<p>1/8 finału</p>
-				<p>27-06-2021 18:00:00</p>
-			</div>
-			<div class="schedule-teams">
-				<p>1C</p>
-				<p>-</p>
-				<p>3DEF</p>
-			</div>
-		</div>
-		<div class="schedule-match">
-			<div class="schedule-info">
-				<p>40</p>
-				<p>1/8 finału</p>
-				<p>27-06-2021 21:00:00</p>
-			</div>
-			<div class="schedule-teams">
-				<p>1B</p>
-				<p>-</p>
-				<p>3ADEF</p>
-			</div>
-		</div>
-		<div class="schedule-match">
-			<div class="schedule-info">
-				<p>41</p>
-				<p>1/8 finału</p>
-				<p>28-06-2021 18:00:00</p>
-			</div>
-			<div class="schedule-teams">
-				<p>2D</p>
-				<p>-</p>
-				<p>2E</p>
-			</div>
-		</div>
-		<div class="schedule-match">
-			<div class="schedule-info">
-				<p>42</p>
-				<p>1/8 finału</p>
-				<p>28-06-2021 21:00:00</p>
-			</div>
-			<div class="schedule-teams">
-				<p>1F</p>
-				<p>-</p>
-				<p>3ABC</p>
-			</div>
-		</div>
-		<div class="schedule-match">
-			<div class="schedule-info">
-				<p>43</p>
-				<p>1/8 finału</p>
-				<p>29-06-2021 18:00:00</p>
-			</div>
-			<div class="schedule-teams">
-				<p>1D</p>
-				<p>-</p>
-				<p>2F</p>
-			</div>
-		</div>
-		<div class="schedule-match">
-			<div class="schedule-info">
-				<p>44</p>
-				<p>1/8 finału</p>
-				<p>29-06-2021 21:00:00</p>
-			</div>
-			<div class="schedule-teams">
-				<p>1E</p>
-				<p>-</p>
-				<p>3ABCD</p>
-			</div>
-		</div>
-		<div class="schedule-match">
-			<div class="schedule-info">
-				<p>45</p>
+				<p>9</p>
 				<p>Ćwierćfinał</p>
 				<p>02-07-2021 18:00:00</p>
 			</div>
 			<div class="schedule-teams">
-				<p>W41</p>
+				<p>W5</p>
 				<p>-</p>
-				<p>W42</p>
+				<p>W6</p>
 			</div>
 		</div>
 		<div class="schedule-match">
 			<div class="schedule-info">
-				<p>46</p>
+				<p>10</p>
 				<p>Ćwierćfinał</p>
 				<p>02-07-2021 21:00:00</p>
 			</div>
 			<div class="schedule-teams">
-				<p>W39</p>
+				<p>W4</p>
 				<p>-</p>
-				<p>W37</p>
+				<p>W2</p>
 			</div>
 		</div>
 		<div class="schedule-match">
 			<div class="schedule-info">
-				<p>47</p>
+				<p>11</p>
 				<p>Ćwierćfinał</p>
 				<p>03-07-2021 18:00:00</p>
 			</div>
 			<div class="schedule-teams">
-				<p>W40</p>
+				<p>W3</p>
 				<p>-</p>
-				<p>W38</p>
+				<p>W1</p>
 			</div>
 		</div>
 		<div class="schedule-match">
 			<div class="schedule-info">
-				<p>48</p>
+				<p>12</p>
 				<p>Ćwierćfinał</p>
 				<p>03-07-2021 21:00:00</p>
 			</div>
 			<div class="schedule-teams">
-				<p>W43</p>
+				<p>W7</p>
 				<p>-</p>
-				<p>W44</p>
+				<p>W8</p>
 			</div>
 		</div>
 		<div class="schedule-match">
 			<div class="schedule-info">
-				<p>49</p>
+				<p>13</p>
 				<p>Półfinał</p>
 				<p>06-07-2021 21:00:00</p>
 			</div>
 			<div class="schedule-teams">
-				<p>W46</p>
+				<p>W10</p>
 				<p>-</p>
-				<p>W45</p>
+				<p>W9</p>
 			</div>
 		</div>
 		<div class="schedule-match">
 			<div class="schedule-info">
-				<p>50</p>
+				<p>14</p>
 				<p>Półfinał</p>
 				<p>07-07-2021 21:00:00</p>
 			</div>
 			<div class="schedule-teams">
-				<p>W48</p>
+				<p>W12</p>
 				<p>-</p>
-				<p>W47</p>
+				<p>W11</p>
 			</div>
 		</div>
 		<div class="schedule-match">
 			<div class="schedule-info">
-				<p>51</p>
+				<p>15</p>
 				<p>Finał</p>
 				<p>11-07-2021 21:00:00</p>
 			</div>
 			<div class="schedule-teams">
-				<p>W49</p>
+				<p>W13</p>
 				<p>-</p>
-				<p>W50</p>
+				<p>W14</p>
 			</div>
 		</div>
 	</div>

@@ -16,10 +16,15 @@ class ScheduleController extends AbstractController
     {
         $schedule = $this->getDoctrine()
             ->getRepository(Matches::class)
-            ->getSchedule();
+            ->getSchedule('group');
+
+        $scheduleKnockout = $this->getDoctrine()
+            ->getRepository(Matches::class)
+            ->getSchedule('knockout');
 
         return $this->render('schedule/index.html.twig', [
-            'schedule' => $schedule
+            'schedule' => $schedule,
+            'scheduleKnockout' => $scheduleKnockout
         ]);
     }
 }

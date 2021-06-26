@@ -24,35 +24,48 @@ class BetsRepository extends ServiceEntityRepository
 
 	public function getResults(): array
 	{
-		return $this->createQueryBuilder('b')
-			->select(
-				'sum(b.points) as points',
-				'u.id',
-				'u.login'
-			)
-			->leftJoin(Users::class, 'u', 'WITH', 'u.id = b.user')
-			->leftJoin(Matches::class, 'm', 'WITH', 'm.id = b.match')
-			->where('m.finished = true')
-			->groupBy('u.id', 'u.login')
-			->orderBy('points', 'DESC')
-			->addOrderBy('u.login', 'ASC')
-			->getQuery()
-			->getArrayResult();
+		$sql = "SELECT SUM(points) as points, id, login FROM
+		(
+		  select sum(b.points) as points, u.id, u.login FROM bets b
+		  left join matches m on m.id = b.match_id
+		  left join users u on u.id = b.user_id
+		  where m.finished = true
+		  group by 2,3
+		  UNION ALL
+		  select sum(bb.points) as points, u.id, u.login FROM bets_bonus bb 
+		  left join users u on u.id = bb.user_id 
+		) as results
+		group by 2,3
+		order by points desc
+        ";
+
+        $conn = $this->getEntityManager()->getConnection();
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
 	}
 
 	public function sumUserPoints(int $userId): array
 	{
 		$now = date("Y-m-d H:i:s");
 
-		return $this->createQueryBuilder('b')
-			->select('sum(b.points) as points')
-			->leftJoin(Matches::class, 'm', 'WITH', 'm.id = b.match')
-			->where('b.user = :id')
-			->andWhere('m.date < :date')
-			->setParameter('id', $userId)
-			->setParameter('date', $now)
-			->getQuery()
-			->getSingleResult();
+		$sql = "SELECT SUM(points) as points FROM
+		(
+		  select sum(b.points) as points FROM bets b
+		  left join matches m on m.id = b.match_id 
+		  where user_id = :userId and m.date < :date
+		  UNION ALL
+		  select sum(bb.points) as points FROM bets_bonus bb WHERE user_id = :userId
+		) as points
+        ";
+
+        $conn = $this->getEntityManager()->getConnection();
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([
+			'userId' => $userId,
+			'date' => $now
+		]);
+        return $stmt->fetch();
 	}
 
 	public function getUserMatches(int $userId, string $type): array
